@@ -5,35 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Money Garden Pro</title>
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ID" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6549982487669310" crossorigin="anonymous"></script>
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
     <style>
-        :root { --primary-bg: #0b0e14; --secondary-bg: #1a1f26; --accent: #f43f5e; --gradient: linear-gradient(135deg, #6366f1, #a855f7); --text-main: #ffffff; }
+        :root { --primary-bg: #0b0e14; --secondary-bg: #1a1f26; --accent: #f43f5e; --gradient: linear-gradient(135deg, #8b5cf6, #d946ef); --text-main: #ffffff; }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 80px; }
         .page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
-        .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; display: inline-block; margin-top: 10px; }
-        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 0.9rem; border-left: 5px solid #ffeeba; text-align: left; line-height: 1.5; }
-        .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; }
-        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 100; }
-        .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.75rem; text-decoration: none; }
-        .active-nav { color: var(--accent); }
-        input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
+        
+        .header { background: var(--gradient); padding: 50px 20px; text-align: center; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-bottom: 20px; }
+        .balance-pill { background: rgba(255,255,255,0.25); padding: 12px 30px; border-radius: 50px; font-size: 1.3rem; font-weight: bold; display: inline-block; margin-top: 15px; border: 1px solid rgba(255,255,255,0.3); }
+        
+        .card { background: var(--secondary-bg); padding: 25px; border-radius: 25px; margin-top: 10px; text-align: center; border: 1px solid #2d3748; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); }
+        .notice-board { background: #fffbe6; color: #856404; padding: 20px; border-radius: 20px; margin-bottom: 20px; font-size: 0.95rem; border-left: 6px solid #fadb14; text-align: left; line-height: 1.6; }
+        
+        .btn-action { background: #f43f5e; color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1.1rem; }
+        
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #2d3748; z-index: 100; }
+        .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.8rem; text-decoration: none; }
+        .active-nav { color: #f43f5e; font-weight: bold; }
+        
+        input, select { width: 90%; padding: 14px; margin-top: 10px; border-radius: 12px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
     </style>
 </head>
 <body>
 
     <div id="home-page" class="page active">
         <div class="header">
-            <h2>Money Garden 💰</h2>
+            <h1 style="margin:0;">Money Garden 💰</h1>
             <div class="balance-pill">ব্যালেন্স: <span id="balance">0</span> ৳</div>
         </div>
+        
         <div class="card">
             <div class="notice-board">
                 📢 <b>অফার নোটিশ:</b><br>
@@ -41,43 +47,42 @@
                 ✅ বন্ধুকে রেফার করলে পাচ্ছেন <b>৩০০ পয়েন্ট</b> বোনাস!<br>
                 ✅ প্রতিটি কাজের জন্য ৫০ পয়েন্ট। ৫০০০ পয়েন্টে ৫০০ টাকা সরাসরি বিকাশ বা নগদে পেমেন্ট।
             </div>
-            <p id="task-info">বাকি কাজ: ২০/২০</p>
+            
+            <p id="task-info" style="font-size: 1.1rem; font-weight: 500;">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
         </div>
     </div>
 
     <div id="refer-page" class="page">
-        <h2 align="center">রেফার বোনাস ৩০০</h2>
+        <h2 align="center">রেফার ও ইনকাম</h2>
         <div class="card">
-            <p>আপনার রেফার লিংক কপি করে শেয়ার করুন এবং ৩০০ পয়েন্ট বোনাস নিন!</p>
+            <p>আপনার রেফার লিংকটি বন্ধুদের সাথে শেয়ার করুন। প্রতি সফল রেফারে আপনি পাবেন ৩০০ পয়েন্ট বোনাস!</p>
             <input type="text" id="ref-url" readonly>
             <button class="btn-action" onclick="copyRef()">লিংক কপি করুন</button>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 align="center">টাকা উত্তোলন</h2>
+        <h2 align="center">উইথড্র করুন</h2>
         <div class="card">
-            <p>মিনিমাম ৫০০০ পয়েন্ট (৫০০ টাকা)</p>
+            <p style="color: #94a3b8;">মিনিমাম ৫০০০ পয়েন্ট (৫০০ টাকা)</p>
             <select id="withdraw-method">
                 <option value="bkash">বিকাশ (bKash)</option>
                 <option value="nagad">নগদ (Nagad)</option>
             </select>
             <input type="number" id="phone" placeholder="বিকাশ/নগদ নম্বর দিন">
-            <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট</button>
+            <button class="btn-action" onclick="handleWithdraw()">রিকোয়েস্ট পাঠান</button>
         </div>
     </div>
 
     <div id="settings-page" class="page">
-        <h2 align="center">প্রোফাইল সেটিংস</h2>
+        <h2 align="center">আপনার প্রোফাইল</h2>
         <div class="card">
-            <p>আপনার ID: <span id="display-id"></span></p>
-            <hr style="border: 0.5px solid #2d3748; margin: 15px 0;">
-            <div style="text-align: left; padding: 0 10px;">
-                <p style="color: #4ade80; font-weight: bold; margin: 5px 0;">👥 মোট রেফার: <span id="refer-count">0</span> জন</p>
-                <p style="color: #60a5fa; font-weight: bold; margin: 5px 0;">💰 রেফার ইনকাম: <span id="refer-income">0</span> পয়েন্ট</p>
+            <p>আপনার ID: <span id="display-id" style="color: #f43f5e; font-weight: bold;"></span></p>
+            <div style="text-align: left; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 15px;">
+                <p style="color: #4ade80; margin: 5px 0;">👥 মোট রেফার: <span id="refer-count">0</span> জন</p>
+                <p style="color: #60a5fa; margin: 5px 0;">💰 রেফার ইনকাম: <span id="refer-income">0</span> পয়েন্ট</p>
             </div>
-            <hr style="border: 0.5px solid #2d3748; margin: 15px 0;">
             <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">টেলিগ্রাম সাপোর্ট</button>
             <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ</button>
         </div>
@@ -95,8 +100,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_final_v15_ads') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_final_v15_ads', userId);
+        let userId = localStorage.getItem('mg_final_v_launch') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_final_v_launch', userId);
 
         let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now(), totalRef: 0, refStatus: false };
 
@@ -107,10 +112,6 @@
             
             if (doc.exists) {
                 userData = doc.data();
-                if (Date.now() - userData.lastReset > 24*60*60*1000) { 
-                    userData.tasksLeft = 20; userData.lastReset = Date.now();
-                    await db.collection("users").doc(userId).update(userData);
-                }
             } else {
                 if(referrer && referrer !== userId) {
                     const refDoc = await db.collection("users").doc(referrer).get();
@@ -131,14 +132,9 @@
             document.getElementById('balance').innerText = userData.balance;
             document.getElementById('task-info').innerText = "বাকি কাজ: " + userData.tasksLeft + "/২০";
             document.getElementById('display-id').innerText = userId;
-            let refCount = userData.totalRef || 0;
-            document.getElementById('refer-count').innerText = refCount;
-            document.getElementById('refer-income').innerText = refCount * 300;
+            document.getElementById('refer-count').innerText = userData.totalRef || 0;
+            document.getElementById('refer-income').innerText = (userData.totalRef || 0) * 300;
             document.getElementById('ref-url').value = window.location.origin + window.location.pathname + "?ref=" + userId;
-            if(userData.tasksLeft <= 0) {
-                document.getElementById('task-btn').disabled = true;
-                document.getElementById('task-btn').innerText = "২৪ ঘণ্টা পর আসুন";
-            }
         }
 
         async function startTask() {
@@ -163,13 +159,7 @@
             }
         }
 
-        function handleWithdraw() {
-            const phone = document.getElementById('phone').value;
-            if(userData.balance < 5000) { alert("পর্যাপ্ত পয়েন্ট নেই।"); }
-            else if(phone.length < 11) { alert("সঠিক নম্বর দিন।"); }
-            else { alert("উইথড্র রিকোয়েস্ট সফল হয়েছে!"); }
-        }
-
+        function handleWithdraw() { alert("রিকোয়েস্ট সফল হয়েছে!"); }
         function copyRef() { const t = document.getElementById("ref-url"); t.select(); navigator.clipboard.writeText(t.value); alert("লিংক কপি হয়েছে!"); }
         function showP(pId, el) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(pId).classList.add('active'); document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav')); el.classList.add('active-nav'); }
         
