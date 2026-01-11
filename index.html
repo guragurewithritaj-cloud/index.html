@@ -14,21 +14,15 @@
         .page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
         .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; display: inline-block; margin-top: 10px; }
-        
+        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-size: 0.85rem; border-left: 5px solid #ffeeba; text-align: left; }
         .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; }
-        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 0.85rem; border-left: 5px solid #ffeeba; text-align: left; }
-        
         .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; }
-        .btn-action:disabled { background: #4b5563; }
-        
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 100; }
         .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.75rem; text-decoration: none; }
         .active-nav { color: var(--accent); }
-        
-        input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; font-size: 1rem; }
+        input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
     </style>
 </head>
 <body>
@@ -40,10 +34,10 @@
         </div>
         <div class="card">
             <div class="notice-board">
-                <b>স্বাগতম নোটিশ:</b> মানি গার্ডেন প্রো-তে আপনাকে স্বাগতম! লগইন বোনাস ১০০ পয়েন্ট আপনার অ্যাকাউন্টে যোগ করা হয়েছে।
+                <b>স্বাগতম:</b> মানি গার্ডেন প্রো-তে স্বাগতম! লগইন বোনাস ১০০ পয়েন্ট যোগ করা হয়েছে।
             </div>
-            <div class="notice-board" style="background: #e1f5fe; color: #01579b; border-left-color: #03a9f4;">
-                <b>কাজের নিয়ম:</b> প্রতি রেফারে ৩০০ পয়েন্ট। প্রতিদিন ২০টি কাজ। ৫০০০ পয়েন্টে ৫০০ টাকা।
+            <div class="notice-board" style="background: #e1f5fe; color: #01579b;">
+                <b>নিয়ম:</b> প্রতি রেফারে ৩০০ পয়েন্ট এবং ডেইলি ২০টি কাজ। ৫০০০ পয়েন্টে ৫০০ টাকা বিকাশ/নগদে।
             </div>
             <p id="task-info">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
@@ -51,16 +45,16 @@
     </div>
 
     <div id="refer-page" class="page">
-        <h2 align="center">রেফার বোনাস ৩০০ পয়েন্ট</h2>
+        <h2 align="center">রেফার লিংক</h2>
         <div class="card">
-            <p>আপনার রেফার লিংক কপি করুন:</p>
+            <p>রেফার করে ৩০০ পয়েন্ট জিতে নিন!</p>
             <input type="text" id="ref-url" readonly>
             <button class="btn-action" onclick="copyRef()">লিংক কপি করুন</button>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 align="center">টাকা উত্তোলন</h2>
+        <h2 align="center">উইথড্র</h2>
         <div class="card">
             <p>মিনিমাম ৫০০০ পয়েন্ট (৫০০ টাকা)</p>
             
@@ -69,17 +63,17 @@
                 <option value="nagad">নগদ (Nagad)</option>
             </select>
             
-            <input type="number" id="phone" placeholder="আপনার নম্বর লিখুন">
-            <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট পাঠান</button>
+            <input type="number" id="phone" placeholder="নম্বর দিন">
+            <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট</button>
         </div>
     </div>
 
     <div id="settings-page" class="page">
         <h2 align="center">সেটিংস</h2>
         <div class="card">
-            <p>ID: <span id="display-id"></span></p>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_telegram_link')">টেলিগ্রাম সাপোর্ট চ্যানেল</button>
-            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ করুন</button>
+            <p>আপনার ID: <span id="display-id"></span></p>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_telegram_id')">টেলিগ্রাম সাপোর্ট</button>
+            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ</button>
         </div>
     </div>
 
@@ -95,29 +89,28 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_final_v2') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_final_v2', userId);
+        let userId = localStorage.getItem('mg_vFinal') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_vFinal', userId);
 
         let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now() };
 
         async function loadData() {
             const urlParams = new URLSearchParams(window.location.search);
             const referrer = urlParams.get('ref');
-
             const doc = await db.collection("users").doc(userId).get();
             if (doc.exists) {
                 userData = doc.data();
                 if (Date.now() - userData.lastReset > 24*60*60*1000) { 
-                    userData.tasksLeft = 20; userData.lastReset = Date.now();
+                    userData.tasksLeft = 20; userData.lastReset = Date.now(); 
                     await db.collection("users").doc(userId).update(userData);
                 }
             } else {
                 if(referrer && referrer !== userId) {
                     const refDoc = await db.collection("users").doc(referrer).get();
-                    if(refDoc.exists) {
-                        let refData = refDoc.data();
-                        refData.balance += 300; 
-                        await db.collection("users").doc(referrer).set(refData);
+                    if(refDoc.exists) { 
+                        let refData = refDoc.data(); 
+                        refData.balance += 300; // Refer Bonus
+                        await db.collection("users").doc(referrer).set(refData); 
                     }
                 }
                 await db.collection("users").doc(userId).set(userData);
@@ -130,10 +123,7 @@
             document.getElementById('task-info').innerText = "বাকি কাজ: " + userData.tasksLeft + "/২০";
             document.getElementById('display-id').innerText = userId;
             document.getElementById('ref-url').value = window.location.origin + window.location.pathname + "?ref=" + userId;
-            if(userData.tasksLeft <= 0) {
-                document.getElementById('task-btn').disabled = true;
-                document.getElementById('task-btn').innerText = "২৪ ঘণ্টা পর আসুন";
-            }
+            if(userData.tasksLeft <= 0) { document.getElementById('task-btn').disabled = true; document.getElementById('task-btn').innerText = "২৪ ঘণ্টা পর আসুন"; }
         }
 
         async function startTask() {
@@ -143,7 +133,7 @@
                 const btn = document.getElementById('task-btn');
                 btn.disabled = true;
                 const timer = setInterval(async () => {
-                    btn.innerText = "অপেক্ষা করুন (" + timeLeft + "s)";
+                    btn.innerText = "অপেক্ষা (" + timeLeft + "s)";
                     timeLeft--;
                     if (timeLeft < 0) {
                         clearInterval(timer);
@@ -152,7 +142,7 @@
                         await db.collection("users").doc(userId).set(userData);
                         btn.disabled = false; btn.innerText = "কাজ শুরু করুন";
                         updateUI();
-                        alert("৫০ পয়েন্ট সফলভাবে যোগ হয়েছে!");
+                        alert("অভিনন্দন! পয়েন্ট যোগ হয়েছে।");
                     }
                 }, 1000);
             }
@@ -161,28 +151,13 @@
         function handleWithdraw() {
             const method = document.getElementById('withdraw-method').value;
             const phone = document.getElementById('phone').value;
-            if(userData.balance < 5000) {
-                alert("আপনার পর্যাপ্ত পয়েন্ট নেই।");
-            } else if(phone.length < 11) {
-                alert("সঠিক নম্বর দিন।");
-            } else {
-                alert(method.toUpperCase() + " এর মাধ্যমে ৫০০০ পয়েন্টের রিকোয়েস্ট পাঠানো হয়েছে।");
-            }
+            if(userData.balance < 5000) { alert("পর্যাপ্ত পয়েন্ট নেই।"); }
+            else if(phone.length < 11) { alert("সঠিক নম্বর দিন।"); }
+            else { alert(method.toUpperCase() + " এর মাধ্যমে রিকোয়েস্ট পাঠানো হয়েছে।"); }
         }
 
-        function copyRef() {
-            const copyText = document.getElementById("ref-url");
-            copyText.select();
-            navigator.clipboard.writeText(copyText.value);
-            alert("রেফার লিংক কপি হয়েছে! বন্ধুদের পাঠিয়ে ৩০০ পয়েন্ট জিতুন।");
-        }
-
-        function showP(pId, el) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pId).classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav'));
-            el.classList.add('active-nav');
-        }
+        function copyRef() { const copyText = document.getElementById("ref-url"); copyText.select(); navigator.clipboard.writeText(copyText.value); alert("লিংক কপি হয়েছে!"); }
+        function showP(pId, el) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(pId).classList.add('active'); document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav')); el.classList.add('active-nav'); }
         loadData();
     </script>
 </body>
