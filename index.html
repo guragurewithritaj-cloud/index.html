@@ -19,35 +19,21 @@
             --text-dim: #94a3b8;
         }
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background: var(--primary-bg);
-            color: var(--text-main);
-            padding-bottom: 90px;
-        }
-
+        body { margin: 0; font-family: 'Segoe UI', Roboto, sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 90px; }
         .page { display: none; padding: 20px; animation: slideUp 0.3s ease-out; }
         .active { display: block; }
         @keyframes slideUp { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        /* Welcome Banner */
-        #welcome-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 2000;
-        }
-        .modal-card {
-            background: var(--gradient); padding: 30px; border-radius: 25px;
-            text-align: center; width: 80%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        /* Modals Style */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .modal-card { background: var(--gradient); padding: 30px; border-radius: 25px; text-align: center; width: 85%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); }
+        .notice-card { background: #1e293b; color: white; border: 2px solid #6366f1; }
 
         .header { background: var(--gradient); padding: 45px 20px; text-align: center; border-bottom-left-radius: 35px; border-bottom-right-radius: 35px; margin: -20px -20px 25px -20px; }
         .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 50px; display: inline-block; font-size: 1.3rem; font-weight: bold; border: 1px solid rgba(255,255,255,0.3); }
         .card { background: var(--secondary-bg); padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #2d3748; }
-        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #334155; background: #0b0e14; color: white; box-sizing: border-box; }
-
-        .list-item { display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #2d3748; cursor: pointer; text-decoration: none; color: white; }
+        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 1000; }
         .nav-link { text-align: center; font-size: 0.75rem; color: var(--text-dim); cursor: pointer; flex: 1; }
         .active-nav { color: var(--accent); font-weight: bold; }
@@ -56,65 +42,47 @@
 </head>
 <body>
 
-    <div id="welcome-modal">
+    <div id="welcome-modal" class="modal-overlay">
         <div class="modal-card">
-            <h2 style="margin: 0;">স্বাগতম! 🎉</h2>
-            <p>আমাদের সাথে যোগ দেওয়ার জন্য আপনি পেয়েছেন <b>১০০ পয়েন্ট</b> বোনাস!</p>
-            <button class="btn-action" style="background: white; color: #6366f1;" onclick="closeModal()">বোনাস নিন</button>
+            <h2 style="margin: 0;">অভিনন্দন! 🎉</h2>
+            <p>আমাদের অ্যাপে জয়েন করার জন্য আপনি পেয়েছেন <b>১০০ পয়েন্ট</b> বোনাস!</p>
+            <button class="btn-action" style="background: white; color: #6366f1;" onclick="claimBonus()">বোনাস ও নোট দেখুন</button>
+        </div>
+    </div>
+
+    <div id="notes-modal" class="modal-overlay">
+        <div class="modal-card notice-card">
+            <h3 style="color: #6366f1; margin-top: 0;">📌 জুরুরি নোটিশ (Important)</h3>
+            <div style="text-align: left; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
+                • দিনে ১০টি ভিডিও টাস্ক কমপ্লিট করুন।<br>
+                • ভুল তথ্য দিলে পেমেন্ট বাতিল হতে পারে।<br>
+                • পেমেন্ট পেতে ৫০০০ পয়েন্ট প্রয়োজন।<br>
+                • কোনো সমস্যা হলে সাপোর্ট গ্রুপে জানান।
+            </div>
+            <button class="btn-action" onclick="closeNotes()">বুঝেছি, কাজ শুরু করি</button>
         </div>
     </div>
 
     <div id="home-page" class="page active">
         <div class="header">
-            <h3 style="margin: 0;">Money Garden 💰</h3>
+            <h3>Money Garden 💰</h3>
             <div class="balance-pill">ব্যালেন্স: <span id="balance">100.00</span> ৳</div>
         </div>
-        <div class="card" style="display: flex; justify-content: space-around; text-align: center;">
-            <div onclick="alert('টাস্ক শীঘ্রই আসছে!')">📺<p style="margin: 5px 0 0;">দৈনিক কাজ</p></div>
-            <div onclick="alert('লিডারবোর্ড চেক করা হচ্ছে...')">🏆<p style="margin: 5px 0 0;">লিডারবোর্ড</p></div>
-        </div>
-        <div class="card" style="text-align: center; color: var(--text-dim); min-height: 100px;">
-            <p>বিজ্ঞাপন এখানে লোড হবে</p>
+        <div class="card" style="text-align: center;">
+            <p>আপনার বিজ্ঞাপন এখানে লোড হবে</p>
         </div>
     </div>
 
     <div id="refer-page" class="page">
         <h2 style="text-align: center;">রেফার ও আয় 👥</h2>
-        <div class="card">
-            <p style="color: var(--text-dim);">প্রতিটি সফল রেফারে আপনি পাবেন ১০০ পয়েন্ট বোনাস!</p>
-            <input type="text" id="ref-link" readonly value="https://t.me/moneygarden_bot?start=userMG2026">
-            <button class="btn-action" onclick="copyRef()">লিঙ্ক কপি করুন</button>
-        </div>
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 style="text-align: center;">টাকা উত্তোলন 💳</h2>
-        <div class="card" style="background: rgba(244, 63, 94, 0.1); border: 1px solid var(--accent);">
-            <p style="margin: 0; text-align: center; font-weight: bold;">💎 ৫০০০ পয়েন্ট = ৫০০ টাকা</p>
-        </div>
-        <div class="card">
-            <select id="method">
-                <option value="Bkash">বিকাশ (Bkash)</option>
-                <option value="Nagad">নগদ (Nagad)</option>
-            </select>
-            <input type="number" id="amount" placeholder="পয়েন্টের পরিমাণ (Min: 5000)">
-            <input type="text" id="phone" placeholder="নম্বর দিন">
-            <button class="btn-action" onclick="sendWithdraw()">আবেদন করুন</button>
-        </div>
+        <h2 style="text-align: center;">উইথড্র 💳</h2>
     </div>
 
     <div id="settings-page" class="page">
         <h2 style="text-align: center;">সেটিংস ⚙️</h2>
-        <div class="card" style="text-align: center;">
-            <div style="width: 70px; height: 70px; background: var(--gradient); border-radius: 50%; margin: 0 auto 10px; border: 2px solid white;"></div>
-            <h3 style="margin: 0;">ইউজার প্রোফাইল</h3>
-            <p style="color: var(--text-dim); font-size: 0.8rem;">ID: #MG2026 Bangladesh</p>
-        </div>
-        <div class="card">
-            <a href="https://t.me/smart_ritaj" class="list-item">📢 টেলিগ্রাম চ্যানেল</a>
-            <a href="https://t.me/smart_ritaj" class="list-item">❓ সাপোর্ট সেন্টার (যোগাযোগ)</a>
-            <div class="list-item" style="color: var(--accent); border: none;" onclick="location.reload()">🚪 লগ আউট</div>
-        </div>
     </div>
 
     <div class="bottom-nav">
@@ -125,29 +93,24 @@
     </div>
 
     <script>
-        // Firebase Configuration (Same as yours)
-        const firebaseConfig = {
-          apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M",
-          authDomain: "taka-447c5.firebaseapp.com",
-          projectId: "taka-447c5",
-          storageBucket: "taka-447c5.firebasestorage.app",
-          messagingSenderId: "280823696760",
-          appId: "1:280823696760:web:1c4ac09ab62fee0fc28c8d"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        // One-time Bonus Logic
+        // Check for First Time User
         window.onload = function() {
-            if (!localStorage.getItem('bonusClaimed')) {
+            if (!localStorage.getItem('firstVisitDone')) {
                 document.getElementById('welcome-modal').style.display = 'flex';
             }
         };
 
-        function closeModal() {
-            localStorage.setItem('bonusClaimed', 'true');
+        // 1. Claim Bonus and Show Notes
+        function claimBonus() {
             document.getElementById('welcome-modal').style.display = 'none';
-            alert("১০০ পয়েন্ট আপনার অ্যাকাউন্টে যোগ করা হয়েছে!");
+            document.getElementById('notes-modal').style.display = 'flex';
+        }
+
+        // 2. Close Notes and Mark as Visited
+        function closeNotes() {
+            localStorage.setItem('firstVisitDone', 'true');
+            document.getElementById('notes-modal').style.display = 'none';
+            alert("১০০ পয়েন্ট আপনার ব্যালেন্সে যোগ হয়েছে!");
         }
 
         function showP(pId, el) {
@@ -155,27 +118,6 @@
             document.getElementById(pId).classList.add('active');
             document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav'));
             el.classList.add('active-nav');
-        }
-
-        function copyRef() {
-            const copyText = document.getElementById("ref-link");
-            copyText.select();
-            document.execCommand("copy");
-            alert("লিঙ্ক কপি হয়েছে!");
-        }
-
-        function sendWithdraw() {
-            const amt = document.getElementById('amount').value;
-            const ph = document.getElementById('phone').value;
-            const met = document.getElementById('method').value;
-
-            if(amt >= 5000 && ph) {
-                db.collection("withdraws").add({
-                    points: amt, phone: ph, method: met, status: "Pending", time: new Date().toLocaleString()
-                }).then(() => alert("সাফল্যের সাথে আবেদন জমা হয়েছে!"));
-            } else {
-                alert("সঠিক তথ্য দিন।");
-            }
         }
     </script>
 </body>
