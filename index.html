@@ -15,6 +15,10 @@
         .active { display: block; }
         .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
         .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; display: inline-block; margin-top: 10px; }
+        
+        /* Notice Board Style */
+        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9rem; border-left: 5px solid #ffeeba; text-align: left; }
+        
         .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; }
         .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         .btn-action:disabled { background: #4b5563; }
@@ -31,7 +35,12 @@
             <h2>Money Garden 💰</h2>
             <div class="balance-pill">ব্যালেন্স: <span id="balance">0</span> ৳</div>
         </div>
+        
         <div class="card">
+            <div class="notice-board">
+                <b>নোটিশ:</b> প্রতিদিন ২০টি কাজ সম্পন্ন করুন। প্রতি কাজে ৫০ পয়েন্ট! ৫০০০ পয়েন্ট হলে ৫০০ টাকা সরাসরি বিকাশ/নগদে। লগইন বোনাস ১০০ পয়েন্ট যোগ করা হয়েছে।
+            </div>
+            <div style="font-size: 40px;">📺</div>
             <p id="task-info">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
         </div>
@@ -40,7 +49,7 @@
     <div id="refer-page" class="page">
         <h2 align="center">রেফার লিংক</h2>
         <div class="card">
-            <p>আপনার রেফার লিংকটি বন্ধুদের শেয়ার করুন:</p>
+            <p>আপনার রেফার লিংকটি শেয়ার করুন:</p>
             <input type="text" id="ref-url" readonly>
             <button class="btn-action" onclick="copyRef()">লিংক কপি করুন</button>
         </div>
