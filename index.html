@@ -15,7 +15,6 @@
             --primary-bg: #0f172a;
             --secondary-bg: #1e293b;
             --accent-color: #f43f5e;
-            --card-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             --text-color: #ffffff;
         }
 
@@ -27,80 +26,72 @@
             padding-bottom: 80px;
         }
 
-        .page { display: none; padding: 20px; animation: fadeIn 0.3s; }
+        /* Page Display Logic */
+        .page { display: none; padding: 20px; }
         .active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Header Design */
         .header {
-            background: var(--card-gradient);
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             padding: 40px 20px;
             text-align: center;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             margin-bottom: 20px;
         }
 
         .balance-box {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
             border-radius: 50px;
             display: inline-block;
-            font-weight: bold;
-            font-size: 1.3rem;
             margin-top: 10px;
-            backdrop-filter: blur(5px);
+            font-weight: bold;
         }
 
-        /* Grid Menu */
+        /* Menu Grid */
         .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-top: 10px;
         }
 
         .card {
             background: var(--secondary-bg);
-            padding: 25px 15px;
+            padding: 20px;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* Input Styles */
+        /* Form Styles */
         .withdraw-form {
             background: var(--secondary-bg);
-            padding: 30px 20px;
-            border-radius: 25px;
+            padding: 20px;
+            border-radius: 20px;
             margin-top: 20px;
         }
 
         input {
             width: 100%;
-            padding: 15px;
-            margin: 12px 0;
-            border-radius: 12px;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
             border: 1px solid #334155;
             background: #0f172a;
             color: white;
             box-sizing: border-box;
-            font-size: 1rem;
         }
 
         .btn-main {
             background: var(--accent-color);
             color: white;
             border: none;
-            padding: 16px;
+            padding: 15px;
             width: 100%;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: bold;
-            font-size: 1.1rem;
             cursor: pointer;
-            margin-top: 10px;
         }
 
         /* Bottom Navigation */
@@ -111,9 +102,8 @@
             background: #1e293b;
             display: flex;
             justify-content: space-around;
-            padding: 15px 0;
+            padding: 12px 0;
             border-top: 1px solid #334155;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
         }
 
         .nav-item {
@@ -121,35 +111,24 @@
             font-size: 0.8rem;
             color: #94a3b8;
             cursor: pointer;
+            flex: 1;
         }
 
         .nav-item.active-nav { color: #f43f5e; font-weight: bold; }
-        .nav-icon { font-size: 22px; display: block; }
     </style>
 </head>
 <body>
 
-    <div id="home" class="page active">
-        <div class="header" style="margin: -20px -20px 20px -20px;">
-            <div style="width: 70px; height: 70px; background: #fff; border-radius: 50%; margin: 0 auto; border: 3px solid #f43f5e;"></div>
+    <div id="home-page" class="page active">
+        <div class="header">
             <h3>Money Garden 💰</h3>
-            <div class="balance-box">ব্যালেন্স: <span id="user-balance">0.00</span> ৳</div>
+            <div class="balance-box">ব্যালেন্স: 0.00 ৳</div>
         </div>
-
         <div class="grid-container">
-            <div class="card">
-                <span style="font-size: 30px;">📺</span>
-                <h4>দৈনিক কাজ</h4>
-                <p style="color: #94a3b8;">০/১০ সম্পূর্ণ</p>
-            </div>
-            <div class="card">
-                <span style="font-size: 30px;">👥</span>
-                <h4>রেফার</h4>
-                <p style="color: #94a3b8;">বোনাস ৫০ ৳</p>
-            </div>
+            <div class="card">📺<br>দৈনিক কাজ<br><small>০/১০ সম্পূর্ণ</small></div>
+            <div class="card">👥<br>রেফার<br><small>বোনাস ৫০ ৳</small></div>
         </div>
-
-        <div class="card" style="margin-top: 20px; width: auto;">
+        <div class="card" style="margin-top: 20px;">
             <p>আপনার বিজ্ঞাপন এখানে লোড হবে</p>
             <ins class="adsbygoogle"
                  style="display:block"
@@ -161,34 +140,28 @@
         </div>
     </div>
 
-    <div id="withdraw" class="page">
-        <h2 style="text-align: center;">টাকা উত্তোলন করুন 💳</h2>
+    <div id="withdraw-page" class="page">
+        <h2 style="text-align: center;">টাকা উত্তোলন 💳</h2>
         <div class="withdraw-form">
-            <label>পয়েন্টের পরিমাণ</label>
-            <input type="number" id="points" placeholder="উদা: ৫০০০">
-            
-            <label>বিকাশ/নগদ নম্বর</label>
-            <input type="text" id="phone" placeholder="০১৭XXXXXXXX">
-            
-            <button class="btn-main" onclick="sendRequest()">আবেদন জমা দিন</button>
+            <input type="number" id="p-amount" placeholder="পয়েন্টের পরিমাণ">
+            <input type="text" id="p-phone" placeholder="বিকাশ/নগদ নম্বর">
+            <button class="btn-main" onclick="requestMoney()">আবেদন জমা দিন</button>
         </div>
-        <p style="text-align: center; color: #94a3b8; margin-top: 20px;">পেমেন্ট সাধারণত ২৪ ঘণ্টার মধ্যে করা হয়।</p>
+    </div>
+
+    <div id="settings-page" class="page">
+        <h2 style="text-align: center;">সেটিংস ⚙️</h2>
+        <p style="text-align: center;">অ্যাকাউন্ট ভেরিফিকেশন এবং অন্যান্য তথ্য।</p>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-item active-nav" onclick="showPage('home', this)">
-            <span class="nav-icon">🏠</span>হোম
-        </div>
-        <div class="nav-item" onclick="showPage('withdraw', this)">
-            <span class="nav-icon">💳</span>উইথড্র
-        </div>
-        <div class="nav-item">
-            <span class="nav-icon">⚙️</span>সেটিংস
-        </div>
+        <div class="nav-item active-nav" onclick="changePage('home-page', this)">🏠<br>হোম</div>
+        <div class="nav-item" onclick="changePage('withdraw-page', this)">💳<br>উইথড্র</div>
+        <div class="nav-item" onclick="changePage('settings-page', this)">⚙️<br>সেটিংস</div>
     </div>
 
     <script>
-        // Firebase Config
+        // Firebase Configuration
         const firebaseConfig = {
           apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M",
           authDomain: "taka-447c5.firebaseapp.com",
@@ -200,33 +173,35 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Navigation Logic
-        function showPage(pageId, element) {
+        // Page Navigation Function
+        function changePage(pageId, navElement) {
+            // Hide all pages
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // Show selected page
             document.getElementById(pageId).classList.add('active');
             
+            // Highlight active nav item
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
-            element.classList.add('active-nav');
+            navElement.classList.add('active-nav');
         }
 
-        // Withdraw Function
-        function sendRequest() {
-            const points = document.getElementById('points').value;
-            const phone = document.getElementById('phone').value;
-
-            if(points && phone) {
+        // Withdraw Logic
+        function requestMoney() {
+            const amount = document.getElementById('p-amount').value;
+            const phone = document.getElementById('p-phone').value;
+            if(amount && phone) {
                 db.collection("withdraws").add({
-                    points: points,
+                    amount: amount,
                     phone: phone,
                     status: "Pending",
-                    time: new Date().toLocaleString()
+                    timestamp: new Date()
                 }).then(() => {
-                    alert("আপনার রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
-                    document.getElementById('points').value = "";
-                    document.getElementById('phone').value = "";
+                    alert("রিকোয়েস্ট পাঠানো হয়েছে!");
+                    document.getElementById('p-amount').value = "";
+                    document.getElementById('p-phone').value = "";
                 });
             } else {
-                alert("দয়া করে সব তথ্য পূরণ করুন!");
+                alert("সব তথ্য পূরণ করুন!");
             }
         }
     </script>
