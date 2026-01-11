@@ -67,9 +67,15 @@
     </div>
 
     <div id="settings-page" class="page">
-        <h2 align="center">সেটিংস ও সাপোর্ট</h2>
+        <h2 align="center">প্রোফাইল সেটিংস</h2>
         <div class="card">
             <p>আপনার ID: <span id="display-id"></span></p>
+            <hr style="border: 0.5px solid #2d3748; margin: 15px 0;">
+            <div style="text-align: left; padding: 0 10px;">
+                <p style="color: #4ade80; font-weight: bold; margin: 5px 0;">👥 মোট রেফার: <span id="refer-count">0</span> জন</p>
+                <p style="color: #60a5fa; font-weight: bold; margin: 5px 0;">💰 রেফার ইনকাম: <span id="refer-income">0</span> পয়েন্ট</p>
+            </div>
+            <hr style="border: 0.5px solid #2d3748; margin: 15px 0;">
             <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">টেলিগ্রাম সাপোর্ট</button>
             <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ</button>
         </div>
@@ -87,15 +93,16 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_final_v13') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_final_v13', userId);
+        let userId = localStorage.getItem('mg_final_v15') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_final_v15', userId);
 
-        let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now() };
+        let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now(), totalRef: 0, refStatus: false };
 
         async function loadData() {
             const urlParams = new URLSearchParams(window.location.search);
             const referrer = urlParams.get('ref');
             const doc = await db.collection("users").doc(userId).get();
+            
             if (doc.exists) {
                 userData = doc.data();
                 if (Date.now() - userData.lastReset > 24*60*60*1000) { 
@@ -106,8 +113,11 @@
                 if(referrer && referrer !== userId) {
                     const refDoc = await db.collection("users").doc(referrer).get();
                     if(refDoc.exists) {
-                        let rd = refDoc.data(); rd.balance += 300;
+                        let rd = refDoc.data();
+                        rd.balance += 300; 
+                        rd.totalRef = (rd.totalRef || 0) + 1;
                         await db.collection("users").doc(referrer).set(rd);
+                        userData.refStatus = true;
                     }
                 }
                 await db.collection("users").doc(userId).set(userData);
@@ -119,6 +129,12 @@
             document.getElementById('balance').innerText = userData.balance;
             document.getElementById('task-info').innerText = "বাকি কাজ: " + userData.tasksLeft + "/২০";
             document.getElementById('display-id').innerText = userId;
+            
+            // UI Updates for Referrals
+            let refCount = userData.totalRef || 0;
+            document.getElementById('refer-count').innerText = refCount;
+            document.getElementById('refer-income').innerText = refCount * 300; // 300 points per refer
+            
             document.getElementById('ref-url').value = window.location.origin + window.location.pathname + "?ref=" + userId;
             if(userData.tasksLeft <= 0) {
                 document.getElementById('task-btn').disabled = true;
@@ -128,7 +144,6 @@
 
         async function startTask() {
             if (userData.tasksLeft > 0) {
-                // New Link Added Below
                 window.open("https://www.effectivegatecpm.com/f0zydmuyb?key=23d3398940cf4abc8b35403ad98a89c8", "_blank");
                 let timeLeft = 15;
                 const btn = document.getElementById('task-btn');
