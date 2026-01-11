@@ -14,22 +14,18 @@
         .page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
         .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
         .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; display: inline-block; margin-top: 10px; }
-        
+        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 0.9rem; border-left: 5px solid #ffeeba; text-align: left; line-height: 1.5; }
         .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; }
-        .notice-board { background: #e1f5fe; color: #01579b; padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid #03a9f4; text-align: left; }
         .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; }
-        
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 100; }
         .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.75rem; text-decoration: none; }
         .active-nav { color: var(--accent); }
-        
         input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
     </style>
 </head>
-<body onload="launchApp()">
+<body>
 
     <div id="home-page" class="page active">
         <div class="header">
@@ -38,7 +34,10 @@
         </div>
         <div class="card">
             <div class="notice-board">
-                <b>গুরুত্বপূর্ণ নিয়ম:</b> রেফার করলে ৩০০ পয়েন্ট বোনাস। প্রতিটি কাজের জন্য পাবেন ৫০ পয়েন্ট। ৫০০০ পয়েন্ট হলে ৫০০ টাকা বিকাশ বা নগদে উইথড্র দিতে পারবেন।
+                📢 <b>অফার নোটিশ:</b><br>
+                ✅ একাউন্ট খুললেই <b>১০০ পয়েন্ট</b> বোনাস!<br>
+                ✅ বন্ধুকে রেফার করলে পাচ্ছেন <b>৩০০ পয়েন্ট</b> বোনাস!<br>
+                ✅ প্রতিটি কাজের জন্য ৫০ পয়েন্ট। ৫০০০ পয়েন্টে ৫০০ টাকা সরাসরি বিকাশ বা নগদে পেমেন্ট।
             </div>
             <p id="task-info">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
@@ -71,7 +70,7 @@
         <h2 align="center">সেটিংস ও সাপোর্ট</h2>
         <div class="card">
             <p>আপনার ID: <span id="display-id"></span></p>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/tila')">টেলিগ্রাম সাপোর্ট</button>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">টেলিগ্রাম সাপোর্ট</button>
             <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ</button>
         </div>
     </div>
@@ -88,19 +87,10 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_vFinal_Ready') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_vFinal_Ready', userId);
+        let userId = localStorage.getItem('mg_final_v12') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_final_v12', userId);
 
         let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now() };
-
-        // 1. POPUP WELCOME NOTICE (On Screen Only)
-        function launchApp() {
-            if(!sessionStorage.getItem('welcome_done')) {
-                alert("স্বাগতম! Money Garden Mini App-এ আপনাকে স্বাগতম। আপনার একাউন্টে ১০০ পয়েন্ট বোনাস যোগ করা হয়েছে। নিয়ম মেনে কাজ করুন!");
-                sessionStorage.setItem('welcome_done', 'true');
-            }
-            loadData();
-        }
 
         async function loadData() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -116,7 +106,7 @@
                 if(referrer && referrer !== userId) {
                     const refDoc = await db.collection("users").doc(referrer).get();
                     if(refDoc.exists) {
-                        let rd = refDoc.data(); rd.balance += 300; // 300 Point Refer Bonus
+                        let rd = refDoc.data(); rd.balance += 300;
                         await db.collection("users").doc(referrer).set(rd);
                     }
                 }
@@ -152,7 +142,7 @@
                         await db.collection("users").doc(userId).set(userData);
                         btn.disabled = false; btn.innerText = "কাজ শুরু করুন";
                         updateUI();
-                        alert("অভিনন্দন! আপনি ৫০ পয়েন্ট পেয়েছেন।");
+                        alert("অভিনন্দন! ৫০ পয়েন্ট যোগ হয়েছে।");
                     }
                 }, 1000);
             }
@@ -161,12 +151,14 @@
         function handleWithdraw() {
             const phone = document.getElementById('phone').value;
             if(userData.balance < 5000) { alert("পর্যাপ্ত পয়েন্ট নেই।"); }
-            else if(phone.length < 11) { alert("সঠিক মোবাইল নম্বর দিন।"); }
-            else { alert("আপনার রিকোয়েস্টটি সফলভাবে পাঠানো হয়েছে।"); }
+            else if(phone.length < 11) { alert("সঠিক নম্বর দিন।"); }
+            else { alert("রিকোয়েস্ট সফল হয়েছে!"); }
         }
 
         function copyRef() { const t = document.getElementById("ref-url"); t.select(); navigator.clipboard.writeText(t.value); alert("লিংক কপি হয়েছে!"); }
         function showP(pId, el) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(pId).classList.add('active'); document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav')); el.classList.add('active-nav'); }
+        
+        loadData();
     </script>
 </body>
 </html>
