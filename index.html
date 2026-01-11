@@ -27,7 +27,8 @@
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 100; }
         .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.75rem; text-decoration: none; }
         .active-nav { color: var(--accent); }
-        input { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
+        
+        input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; font-size: 1rem; }
     </style>
 </head>
 <body>
@@ -39,7 +40,10 @@
         </div>
         <div class="card">
             <div class="notice-board">
-                <b>নোটিশ:</b> লগইন বোনাস ১০০ পয়েন্ট! প্রতি রেফারে ৩০০ পয়েন্ট। প্রতিদিন ২০টি কাজ। ৫০০০ পয়েন্টে ৫০০ টাকা বিকাশ/নগদে।
+                <b>স্বাগতম নোটিশ:</b> মানি গার্ডেন প্রো-তে আপনাকে স্বাগতম! লগইন বোনাস ১০০ পয়েন্ট আপনার অ্যাকাউন্টে যোগ করা হয়েছে।
+            </div>
+            <div class="notice-board" style="background: #e1f5fe; color: #01579b; border-left-color: #03a9f4;">
+                <b>কাজের নিয়ম:</b> প্রতি রেফারে ৩০০ পয়েন্ট। প্রতিদিন ২০টি কাজ। ৫০০০ পয়েন্টে ৫০০ টাকা।
             </div>
             <p id="task-info">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
@@ -49,28 +53,33 @@
     <div id="refer-page" class="page">
         <h2 align="center">রেফার বোনাস ৩০০ পয়েন্ট</h2>
         <div class="card">
-            <p>আপনার রেফার লিংক:</p>
+            <p>আপনার রেফার লিংক কপি করুন:</p>
             <input type="text" id="ref-url" readonly>
             <button class="btn-action" onclick="copyRef()">লিংক কপি করুন</button>
-            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 10px;">লিংক শেয়ার করে ৩০০ পয়েন্ট জিতে নিন!</p>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 align="center">উইথড্র</h2>
+        <h2 align="center">টাকা উত্তোলন</h2>
         <div class="card">
             <p>মিনিমাম ৫০০০ পয়েন্ট (৫০০ টাকা)</p>
-            <input type="number" id="phone" placeholder="বিকাশ/নগদ নম্বর">
-            <button class="btn-action" onclick="alert('রিকোয়েস্ট পাঠানো হয়েছে!')">উইথড্র রিকোয়েস্ট</button>
+            
+            <select id="withdraw-method">
+                <option value="bkash">বিকাশ (bKash)</option>
+                <option value="nagad">নগদ (Nagad)</option>
+            </select>
+            
+            <input type="number" id="phone" placeholder="আপনার নম্বর লিখুন">
+            <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট পাঠান</button>
         </div>
     </div>
 
     <div id="settings-page" class="page">
-        <h2 align="center">সেটিংস ও সাপোর্ট</h2>
+        <h2 align="center">সেটিংস</h2>
         <div class="card">
-            <p>আপনার ID: <span id="display-id"></span></p>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_telegram_link')">টেলিগ্রাম সাপোর্ট</button>
-            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ</button>
+            <p>ID: <span id="display-id"></span></p>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_telegram_link')">টেলিগ্রাম সাপোর্ট চ্যানেল</button>
+            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ করুন</button>
         </div>
     </div>
 
@@ -86,8 +95,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_final_uid') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_final_uid', userId);
+        let userId = localStorage.getItem('mg_final_v2') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_final_v2', userId);
 
         let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now() };
 
@@ -107,7 +116,7 @@
                     const refDoc = await db.collection("users").doc(referrer).get();
                     if(refDoc.exists) {
                         let refData = refDoc.data();
-                        refData.balance += 300; // REFER BONUS 300
+                        refData.balance += 300; 
                         await db.collection("users").doc(referrer).set(refData);
                     }
                 }
@@ -143,9 +152,21 @@
                         await db.collection("users").doc(userId).set(userData);
                         btn.disabled = false; btn.innerText = "কাজ শুরু করুন";
                         updateUI();
-                        alert("অভিনন্দন! ৫০ পয়েন্ট পেলেন।");
+                        alert("৫০ পয়েন্ট সফলভাবে যোগ হয়েছে!");
                     }
                 }, 1000);
+            }
+        }
+
+        function handleWithdraw() {
+            const method = document.getElementById('withdraw-method').value;
+            const phone = document.getElementById('phone').value;
+            if(userData.balance < 5000) {
+                alert("আপনার পর্যাপ্ত পয়েন্ট নেই।");
+            } else if(phone.length < 11) {
+                alert("সঠিক নম্বর দিন।");
+            } else {
+                alert(method.toUpperCase() + " এর মাধ্যমে ৫০০০ পয়েন্টের রিকোয়েস্ট পাঠানো হয়েছে।");
             }
         }
 
@@ -153,7 +174,7 @@
             const copyText = document.getElementById("ref-url");
             copyText.select();
             navigator.clipboard.writeText(copyText.value);
-            alert("রেফার লিংক কপি হয়েছে! ৩০০ পয়েন্ট বোনাস পান।");
+            alert("রেফার লিংক কপি হয়েছে! বন্ধুদের পাঠিয়ে ৩০০ পয়েন্ট জিতুন।");
         }
 
         function showP(pId, el) {
