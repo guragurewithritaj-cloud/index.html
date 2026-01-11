@@ -14,18 +14,23 @@
         .page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
         .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
         .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; display: inline-block; margin-top: 10px; }
-        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-size: 0.85rem; border-left: 5px solid #ffeeba; text-align: left; }
+        
         .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; }
+        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid #ffeeba; text-align: left; }
+        
         .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; }
+        
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 100; }
         .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.75rem; text-decoration: none; }
         .active-nav { color: var(--accent); }
+        
         input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
     </style>
 </head>
-<body>
+<body onload="showWelcome()">
 
     <div id="home-page" class="page active">
         <div class="header">
@@ -34,10 +39,7 @@
         </div>
         <div class="card">
             <div class="notice-board">
-                <b>স্বাগতম:</b> মানি গার্ডেন প্রো-তে স্বাগতম! লগইন বোনাস ১০০ পয়েন্ট যোগ করা হয়েছে।
-            </div>
-            <div class="notice-board" style="background: #e1f5fe; color: #01579b;">
-                <b>নিয়ম:</b> প্রতি রেফারে ৩০০ পয়েন্ট এবং ডেইলি ২০টি কাজ। ৫০০০ পয়েন্টে ৫০০ টাকা বিকাশ/নগদে।
+                <b>গুরুত্বপূর্ণ নোটিশ:</b> মানি গার্ডেন প্রো-তে প্রতি রেফারে ৩০০ পয়েন্ট এবং প্রতিটি কাজের জন্য ৫০ পয়েন্ট পাবেন। ৫০০০ পয়েন্ট হলে ৫০০ টাকা উইথড্র করা যাবে।
             </div>
             <p id="task-info">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
@@ -45,9 +47,9 @@
     </div>
 
     <div id="refer-page" class="page">
-        <h2 align="center">রেফার লিংক</h2>
+        <h2 align="center">রেফার বোনাস</h2>
         <div class="card">
-            <p>রেফার করে ৩০০ পয়েন্ট জিতে নিন!</p>
+            <p>আপনার রেফার লিংক কপি করে বন্ধুদের পাঠান এবং প্রতি রেফারে ৩০০ পয়েন্ট বোনাস নিন।</p>
             <input type="text" id="ref-url" readonly>
             <button class="btn-action" onclick="copyRef()">লিংক কপি করুন</button>
         </div>
@@ -57,14 +59,12 @@
         <h2 align="center">উইথড্র</h2>
         <div class="card">
             <p>মিনিমাম ৫০০০ পয়েন্ট (৫০০ টাকা)</p>
-            
             <select id="withdraw-method">
                 <option value="bkash">বিকাশ (bKash)</option>
                 <option value="nagad">নগদ (Nagad)</option>
             </select>
-            
             <input type="number" id="phone" placeholder="নম্বর দিন">
-            <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট</button>
+            <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট পাঠান</button>
         </div>
     </div>
 
@@ -72,8 +72,8 @@
         <h2 align="center">সেটিংস</h2>
         <div class="card">
             <p>আপনার ID: <span id="display-id"></span></p>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_telegram_id')">টেলিগ্রাম সাপোর্ট</button>
-            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ</button>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_actual_username')">টেলিগ্রাম সাপোর্ট</button>
+            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">রিফ্রেশ</button>
         </div>
     </div>
 
@@ -89,10 +89,14 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_vFinal') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_vFinal', userId);
+        let userId = localStorage.getItem('mg_vFinal_Final') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_vFinal_Final', userId);
 
         let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now() };
+
+        function showWelcome() {
+            alert("স্বাগতম! মানি গার্ডেন মিনি অ্যাপে আপনাকে স্বাগতম। আপনার ১০০ পয়েন্ট বোনাস যোগ করা হয়েছে।");
+        }
 
         async function loadData() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -102,14 +106,14 @@
                 userData = doc.data();
                 if (Date.now() - userData.lastReset > 24*60*60*1000) { 
                     userData.tasksLeft = 20; userData.lastReset = Date.now(); 
-                    await db.collection("users").doc(userId).update(userData);
+                    await db.collection("users").doc(userId).update(userData); 
                 }
             } else {
                 if(referrer && referrer !== userId) {
                     const refDoc = await db.collection("users").doc(referrer).get();
                     if(refDoc.exists) { 
                         let refData = refDoc.data(); 
-                        refData.balance += 300; // Refer Bonus
+                        refData.balance += 300; 
                         await db.collection("users").doc(referrer).set(refData); 
                     }
                 }
@@ -133,7 +137,7 @@
                 const btn = document.getElementById('task-btn');
                 btn.disabled = true;
                 const timer = setInterval(async () => {
-                    btn.innerText = "অপেক্ষা (" + timeLeft + "s)";
+                    btn.innerText = "অপেক্ষা করুন (" + timeLeft + "s)";
                     timeLeft--;
                     if (timeLeft < 0) {
                         clearInterval(timer);
@@ -142,21 +146,20 @@
                         await db.collection("users").doc(userId).set(userData);
                         btn.disabled = false; btn.innerText = "কাজ শুরু করুন";
                         updateUI();
-                        alert("অভিনন্দন! পয়েন্ট যোগ হয়েছে।");
+                        alert("অভিনন্দন! আপনার অ্যাকাউন্টে ৫০ পয়েন্ট যোগ হয়েছে।");
                     }
                 }, 1000);
             }
         }
 
         function handleWithdraw() {
-            const method = document.getElementById('withdraw-method').value;
             const phone = document.getElementById('phone').value;
-            if(userData.balance < 5000) { alert("পর্যাপ্ত পয়েন্ট নেই।"); }
-            else if(phone.length < 11) { alert("সঠিক নম্বর দিন।"); }
-            else { alert(method.toUpperCase() + " এর মাধ্যমে রিকোয়েস্ট পাঠানো হয়েছে।"); }
+            if(userData.balance < 5000) { alert("দুঃখিত, আপনার পর্যাপ্ত ব্যালেন্স নেই।"); }
+            else if(phone.length < 11) { alert("অনুগ্রহ করে সঠিক নম্বর দিন।"); }
+            else { alert("আপনার উইথড্র রিকোয়েস্টটি পেন্ডিং আছে।"); }
         }
 
-        function copyRef() { const copyText = document.getElementById("ref-url"); copyText.select(); navigator.clipboard.writeText(copyText.value); alert("লিংক কপি হয়েছে!"); }
+        function copyRef() { const copyText = document.getElementById("ref-url"); copyText.select(); navigator.clipboard.writeText(copyText.value); alert("রেফার লিংক কপি হয়েছে!"); }
         function showP(pId, el) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(pId).classList.add('active'); document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav')); el.classList.add('active-nav'); }
         loadData();
     </script>
