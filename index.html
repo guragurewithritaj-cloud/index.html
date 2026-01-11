@@ -4,49 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income App with Ads</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6549982487669310"
+     crossorigin="anonymous"></script>
+
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background: #f0f2f5; margin: 0; padding: 20px; }
-        .card { background: white; margin-bottom: 20px; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h2 { color: #0088cc; }
-        .btn { background: #0088cc; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; width: 100%; margin-top: 10px; }
-        .ad-container { background: #e9ecef; height: 100px; margin: 15px 0; border: 2px dashed #adb5bd; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #6c757d; }
-        input { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; }
-        .task-item { border-bottom: 1px solid #eee; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+        body { font-family: sans-serif; text-align: center; background: #f0f2f5; margin: 0; padding: 20px; }
+        .card { background: white; margin-bottom: 20px; padding: 20px; border-radius: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn { background: #0088cc; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; }
+        .ad-container { background: #e9ecef; min-height: 100px; margin: 15px 0; border: 2px dashed #bbb; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h2>আপনার ব্যালেন্স</h2>
-        <h1 id="balance">0</h1>
-        <p>পয়েন্ট</p>
+        <h2>আপনার ব্যালেন্স: <span id="balance">0</span> পয়েন্ট</h2>
     </div>
 
-    <div class="ad-container" id="ad-slot">
+    <div class="ad-container">
         <ins class="adsbygoogle"
              style="display:block"
-             data-ad-client="YOUR_CLIENT_ID"
-             data-ad-slot="YOUR_AD_SLOT"
-             data-ad-format="auto"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
+             data-ad-client="ca-pub-6549982487669310"
+             data-ad-slot="AUTO_ADS"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <div class="card">
-        <h3>টাস্ক লিস্ট (কাজ করুন)</h3>
+        <h3>টাস্ক লিস্ট</h3>
         <div id="task-list">টাস্ক লোড হচ্ছে...</div>
     </div>
 
     <div class="card">
         <h3>টাকা তুলুন (Withdraw)</h3>
         <input type="number" id="withdraw-amount" placeholder="পয়েন্টের পরিমাণ">
-        <input type="text" id="bkash-num" placeholder="বিকাশ বা নগদ নম্বর">
-        <button class="btn" onclick="withdraw()">পেমেন্ট রিকোয়েস্ট পাঠান</button>
+        <input type="text" id="bkash-num" placeholder="বিকাশ/নগদ নম্বর">
+        <button class="btn" onclick="withdraw()">আবেদন করুন</button>
     </div>
 
     <script>
-        // আপনার দেওয়া Firebase Config এখানে যুক্ত করা হয়েছে
+        // আপনার Firebase Config
         const firebaseConfig = {
           apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M",
           authDomain: "taka-447c5.firebaseapp.com",
@@ -57,53 +61,37 @@
           measurementId: "G-2WFYL6RPKR"
         };
 
-        // Firebase ইনিশিয়ালাইজ
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Firestore থেকে টাস্ক লোড করা
+        // টাস্ক লোড করা
         db.collection("tasks").onSnapshot((snapshot) => {
             const list = document.getElementById("task-list");
             list.innerHTML = "";
             snapshot.forEach((doc) => {
                 const task = doc.data();
-                list.innerHTML += `
-                    <div class="task-item">
-                        <span>${task.title} (+${task.reward})</span>
-                        <button style="padding: 5px 10px; cursor:pointer;" onclick="doTask('${doc.id}', '${task.link}', ${task.reward})">কাজ শুরু</button>
-                    </div>
-                `;
+                list.innerHTML += `<p>${task.title} - ${task.reward} পয়েন্ট <button onclick="window.open('${task.link}', '_blank')">কাজ শুরু</button></p>`;
             });
         });
-
-        function doTask(id, link, reward) {
-            window.open(link, '_blank');
-            alert(reward + " পয়েন্ট পাওয়ার জন্য টাস্কটি সম্পন্ন করুন।");
-            // পয়েন্ট আপডেট করার লজিক এখানে যুক্ত করা যাবে
-        }
 
         function withdraw() {
             const points = document.getElementById("withdraw-amount").value;
             const phone = document.getElementById("bkash-num").value;
-            
             if(points && phone) {
                 db.collection("withdraws").add({
                     points: points,
                     phone: phone,
                     status: "Pending",
-                    time: firebase.firestore.FieldValue.serverTimestamp()
+                    time: new Date()
                 }).then(() => {
-                    alert("আবেদন সফল হয়েছে! ২৪ ঘণ্টার মধ্যে পেমেন্ট পাবেন।");
+                    alert("আবেদন সফল হয়েছে!");
                     document.getElementById("withdraw-amount").value = "";
                     document.getElementById("bkash-num").value = "";
-                }).catch((error) => {
-                    alert("ভুল হয়েছে: " + error.message);
                 });
             } else {
-                alert("সব তথ্য সঠিকভাবে দিন।");
+                alert("সব তথ্য পূরণ করুন।");
             }
         }
     </script>
 </body>
 </html>
-
