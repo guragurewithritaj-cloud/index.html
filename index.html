@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Money Garden Pro</title>
     
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ID" crossorigin="anonymous"></script>
+
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
@@ -93,8 +95,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_final_v15') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_final_v15', userId);
+        let userId = localStorage.getItem('mg_final_v15_ads') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_final_v15_ads', userId);
 
         let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now(), totalRef: 0, refStatus: false };
 
@@ -129,12 +131,9 @@
             document.getElementById('balance').innerText = userData.balance;
             document.getElementById('task-info').innerText = "বাকি কাজ: " + userData.tasksLeft + "/২০";
             document.getElementById('display-id').innerText = userId;
-            
-            // UI Updates for Referrals
             let refCount = userData.totalRef || 0;
             document.getElementById('refer-count').innerText = refCount;
-            document.getElementById('refer-income').innerText = refCount * 300; // 300 points per refer
-            
+            document.getElementById('refer-income').innerText = refCount * 300;
             document.getElementById('ref-url').value = window.location.origin + window.location.pathname + "?ref=" + userId;
             if(userData.tasksLeft <= 0) {
                 document.getElementById('task-btn').disabled = true;
