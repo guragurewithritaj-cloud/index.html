@@ -28,15 +28,14 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 2000; }
         .modal-card { background: var(--gradient); padding: 30px; border-radius: 25px; text-align: center; width: 85%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-        /* Layout */
+        /* UI Elements */
         .header { background: var(--gradient); padding: 45px 20px; text-align: center; border-bottom-left-radius: 35px; border-bottom-right-radius: 35px; margin: -20px -20px 25px -20px; }
         .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 50px; display: inline-block; font-size: 1.3rem; font-weight: bold; border: 1px solid rgba(255,255,255,0.3); }
         .card { background: var(--secondary-bg); padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #2d3748; }
         .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-action:active { transform: scale(0.98); }
+        .btn-action:disabled { background: #475569; cursor: not-allowed; }
         input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #334155; background: #0b0e14; color: white; box-sizing: border-box; }
 
-        /* Navigation */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 1000; }
         .nav-link { text-align: center; font-size: 0.75rem; color: var(--text-dim); cursor: pointer; flex: 1; }
         .active-nav { color: var(--accent); font-weight: bold; }
@@ -48,20 +47,21 @@
     <div id="welcome-modal" class="modal-overlay">
         <div class="modal-card">
             <h2>অভিনন্দন! 🎉</h2>
-            <p>আপনি পেয়েছেন <b>১০০ পয়েন্ট</b> বোনাস!</p>
+            <p>আমাদের অ্যাপে জয়েন করার জন্য আপনি পেয়েছেন <b>১০০ পয়েন্ট</b> বোনাস!</p>
             <button class="btn-action" style="background: white; color: #6366f1;" onclick="claimBonus()">বোনাস ও নোট দেখুন</button>
         </div>
     </div>
 
     <div id="notes-modal" class="modal-overlay">
         <div class="modal-card" style="background: #1e293b; border: 2px solid #6366f1;">
-            <h3 style="color: #6366f1;">📌 জুরুরি নোটিশ</h3>
+            <h3 style="color: #6366f1; margin-top: 0;">📌 জুরুরি নোটিশ</h3>
             <div style="text-align: left; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
-                • ২০টি কাজ শেষ করলে পাবেন ১০০০ পয়েন্ট।<br>
-                • প্রতিটি কাজের জন্য পাবেন ৫০ পয়েন্ট।<br>
-                • ভুলভাবে কাজ করলে অ্যাকাউন্ট ব্লক হবে।
+                • ১০০ পয়েন্ট বোনাস যোগ হয়েছে।<br>
+                • প্রতিদিন ২০টি কাজ করতে পারবেন।<br>
+                • প্রতিটি কাজের জন্য ৫০ পয়েন্ট পাবেন।<br>
+                • কাজ করতে বাটন ক্লিক করে ১৫ সেকেন্ড অপেক্ষা করুন।
             </div>
-            <button class="btn-action" onclick="closeNotes()">কাজ শুরু করি</button>
+            <button class="btn-action" onclick="closeNotes()">বুঝেছি, কাজ শুরু করি</button>
         </div>
     </div>
 
@@ -74,12 +74,12 @@
         <div class="card" style="text-align: center;">
             <div style="font-size: 40px; margin-bottom: 10px;">📺</div>
             <h4 style="margin: 0;">দৈনিক কাজ</h4>
-            <p id="task-count" style="color: var(--text-dim);">বাকি কাজ: ২০/২০</p>
+            <p id="task-count" style="color: var(--text-dim); margin-top: 5px;">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
         </div>
 
         <div class="card" style="text-align: center; color: var(--text-dim);">
-            <p>বিজ্ঞাপন এখানে লোড হবে</p>
+            <p>আপনার বিজ্ঞাপন এখানে লোড হবে</p>
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6549982487669310" data-ad-slot="AUTO_ADS" data-ad-format="auto"></ins>
         </div>
     </div>
@@ -87,21 +87,21 @@
     <div id="refer-page" class="page">
         <h2 style="text-align: center;">রেফার ও আয় 👥</h2>
         <div class="card">
-            <p>প্রতি সফল রেফারে পাবেন ১০০ পয়েন্ট!</p>
+            <p>আপনার বন্ধুদের আমন্ত্রণ জানালে পাবেন ১০০ পয়েন্ট বোনাস!</p>
             <input type="text" id="ref-link" readonly value="https://t.me/moneygarden_bot?start=userMG2026">
-            <button class="btn-action" onclick="copyRef()">লিঙ্ক কপি</button>
+            <button class="btn-action" onclick="copyRef()">লিঙ্ক কপি করুন</button>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
         <h2 style="text-align: center;">উইথড্র 💳</h2>
         <div class="card" style="border: 1px solid var(--accent);">
-            <p style="text-align: center; font-weight: bold;">💎 ৫০০০ পয়েন্ট = ৫০০ টাকা</p>
+            <p style="text-align: center; font-weight: bold; margin: 0;">💎 ৫০০০ পয়েন্ট = ৫০০ টাকা</p>
         </div>
         <div class="card">
             <select id="method"><option>Bkash</option><option>Nagad</option></select>
-            <input type="number" id="amount" placeholder="পয়েন্ট (Min: 5000)">
-            <input type="text" id="phone" placeholder="নম্বর দিন">
+            <input type="number" id="amount" placeholder="পয়েন্টের পরিমাণ (Min: 5000)">
+            <input type="text" id="phone" placeholder="বিকাশ বা নগদ নম্বর দিন">
             <button class="btn-action" onclick="sendWithdraw()">আবেদন জমা দিন</button>
         </div>
     </div>
@@ -109,11 +109,12 @@
     <div id="settings-page" class="page">
         <h2 style="text-align: center;">সেটিংস ⚙️</h2>
         <div class="card" style="text-align: center;">
-            <div style="width: 60px; height: 60px; background: var(--gradient); border-radius: 50%; margin: 0 auto 10px;"></div>
-            <p>ID: #MG2026 Bangladesh</p>
+            <div style="width: 70px; height: 70px; background: var(--gradient); border-radius: 50%; margin: 0 auto 10px; border: 2px solid white;"></div>
+            <p style="margin: 0;">ID: #MG2026 Bangladesh</p>
         </div>
         <div class="card">
-            <a href="https://t.me/smart_ritaj" style="text-decoration: none; color: white; display: block; padding: 10px 0;">📢 টেলিগ্রাম সাপোর্ট</a>
+            <a href="https://t.me/smart_ritaj" style="text-decoration: none; color: white; display: block; padding: 10px 0; border-bottom: 1px solid #2d3748;">📢 টেলিগ্রাম চ্যানেল</a>
+            <a href="https://t.me/smart_ritaj" style="text-decoration: none; color: white; display: block; padding: 10px 0;">❓ সাপোর্ট সেন্টার (যোগাযোগ)</a>
         </div>
     </div>
 
@@ -125,12 +126,13 @@
     </div>
 
     <script>
-        // Initialization
+        // Setup Initial Data
         let currentTasks = 20;
         let userPoints = 100;
 
+        // 1. Check First Visit
         window.onload = function() {
-            if (!localStorage.getItem('onboarded')) {
+            if (!localStorage.getItem('appSetupDone')) {
                 document.getElementById('welcome-modal').style.display = 'flex';
             }
         };
@@ -141,31 +143,44 @@
         }
 
         function closeNotes() {
-            localStorage.setItem('onboarded', 'true');
+            localStorage.setItem('appSetupDone', 'true');
             document.getElementById('notes-modal').style.display = 'none';
         }
 
-        // Task Logic
+        // 2. Task Logic with Link & 15s Timer
         function startTask() {
             if (currentTasks > 0) {
-                document.getElementById('task-btn').innerText = "অপেক্ষা করুন (১০ সেকেন্ড)...";
-                document.getElementById('task-btn').disabled = true;
+                // Open Ad Link
+                window.open("https://www.effectivegatecpm.com/wpnbkgp7y5?key=7a134e0bd292f7a70f39ce3d7dfd36c8", "_blank");
 
-                setTimeout(() => {
-                    currentTasks--;
-                    userPoints += 50;
-                    document.getElementById('task-count').innerText = "বাকি কাজ: " + currentTasks + "/২০";
-                    document.getElementById('balance').innerText = userPoints;
-                    document.getElementById('task-btn').innerText = "কাজ শুরু করুন";
-                    document.getElementById('task-btn').disabled = false;
-                    alert("আপনি ৫০ পয়েন্ট পেয়েছেন!");
-                }, 10000); // ১০ সেকেন্ড অপেক্ষা
+                let timeLeft = 15;
+                const taskBtn = document.getElementById('task-btn');
+                taskBtn.disabled = true;
+
+                const timerInterval = setInterval(() => {
+                    taskBtn.innerText = "অপেক্ষা করুন (" + timeLeft + "s)";
+                    timeLeft--;
+
+                    if (timeLeft < 0) {
+                        clearInterval(timerInterval);
+                        currentTasks--;
+                        userPoints += 50;
+                        
+                        // Update UI
+                        document.getElementById('task-count').innerText = "বাকি কাজ: " + currentTasks + "/২০";
+                        document.getElementById('balance').innerText = userPoints;
+                        taskBtn.innerText = "কাজ শুরু করুন";
+                        taskBtn.disabled = false;
+                        
+                        alert("অভিনন্দন! আপনি ৫০ পয়েন্ট পেয়েছেন।");
+                    }
+                }, 1000);
             } else {
-                alert("আজকের মতো কাজ শেষ!");
+                alert("আজকের ২০টি কাজ শেষ হয়ে গেছে!");
             }
         }
 
-        // General Navigation
+        // 3. General Navigation
         function showP(pId, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pId).classList.add('active');
@@ -176,13 +191,13 @@
         function copyRef() {
             const el = document.getElementById("ref-link");
             el.select(); document.execCommand("copy");
-            alert("কপি হয়েছে!");
+            alert("রেফারেল লিঙ্ক কপি হয়েছে!");
         }
 
         function sendWithdraw() {
             const amt = document.getElementById('amount').value;
-            if(amt >= 5000) alert("রিকোয়েস্ট জমা হয়েছে!");
-            else alert("ন্যূনতম ৫০০০ পয়েন্ট লাগবে।");
+            if(amt >= 5000) alert("আপনার উইথড্র রিকোয়েস্ট জমা হয়েছে!");
+            else alert("ন্যূনতম ৫০০০ পয়েন্ট প্রয়োজন।");
         }
     </script>
 </body>
