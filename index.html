@@ -10,22 +10,24 @@
 
     <style>
         :root { --primary-bg: #0b0e14; --secondary-bg: #1a1f26; --accent: #f43f5e; --gradient: linear-gradient(135deg, #6366f1, #a855f7); --text-main: #ffffff; }
-        body { margin: 0; font-family: sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 80px; }
-        .page { display: none; padding: 20px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 80px; }
+        .page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
-        .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; display: inline-block; margin-top: 10px; }
         
-        /* Notice Board Style */
-        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9rem; border-left: 5px solid #ffeeba; text-align: left; }
-        
         .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; }
-        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 0.85rem; border-left: 5px solid #ffeeba; text-align: left; }
+        
+        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; }
         .btn-action:disabled { background: #4b5563; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #2d3748; }
-        .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.8rem; }
+        
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 100; }
+        .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.75rem; text-decoration: none; }
         .active-nav { color: var(--accent); }
-        input { width: 90%; padding: 10px; margin-top: 10px; border-radius: 5px; border: none; background: #0b0e14; color: white; }
+        input { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
     </style>
 </head>
 <body>
@@ -35,23 +37,22 @@
             <h2>Money Garden 💰</h2>
             <div class="balance-pill">ব্যালেন্স: <span id="balance">0</span> ৳</div>
         </div>
-        
         <div class="card">
             <div class="notice-board">
-                <b>নোটিশ:</b> প্রতিদিন ২০টি কাজ সম্পন্ন করুন। প্রতি কাজে ৫০ পয়েন্ট! ৫০০০ পয়েন্ট হলে ৫০০ টাকা সরাসরি বিকাশ/নগদে। লগইন বোনাস ১০০ পয়েন্ট যোগ করা হয়েছে।
+                <b>নোটিশ:</b> লগইন বোনাস ১০০ পয়েন্ট! প্রতি রেফারে ৩০০ পয়েন্ট। প্রতিদিন ২০টি কাজ। ৫০০০ পয়েন্টে ৫০০ টাকা বিকাশ/নগদে।
             </div>
-            <div style="font-size: 40px;">📺</div>
             <p id="task-info">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
         </div>
     </div>
 
     <div id="refer-page" class="page">
-        <h2 align="center">রেফার লিংক</h2>
+        <h2 align="center">রেফার বোনাস ৩০০ পয়েন্ট</h2>
         <div class="card">
-            <p>আপনার রেফার লিংকটি শেয়ার করুন:</p>
+            <p>আপনার রেফার লিংক:</p>
             <input type="text" id="ref-url" readonly>
             <button class="btn-action" onclick="copyRef()">লিংক কপি করুন</button>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 10px;">লিংক শেয়ার করে ৩০০ পয়েন্ট জিতে নিন!</p>
         </div>
     </div>
 
@@ -65,11 +66,11 @@
     </div>
 
     <div id="settings-page" class="page">
-        <h2 align="center">সেটিংস</h2>
+        <h2 align="center">সেটিংস ও সাপোর্ট</h2>
         <div class="card">
-            <p>ID: <span id="display-id"></span></p>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_telegram_channel_link')">টেলিগ্রাম সাপোর্ট</button>
-            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">রিফ্রেশ</button>
+            <p>আপনার ID: <span id="display-id"></span></p>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_telegram_link')">টেলিগ্রাম সাপোর্ট</button>
+            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ</button>
         </div>
     </div>
 
@@ -81,32 +82,35 @@
     </div>
 
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M",
-            authDomain: "taka-447c5.firebaseapp.com",
-            projectId: "taka-447c5",
-            storageBucket: "taka-447c5.appspot.com",
-            messagingSenderId: "280823696760",
-            appId: "1:280823696760:web:1c4ac09ab62fee0fc28c8d"
-        };
+        const firebaseConfig = { apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M", authDomain: "taka-447c5.firebaseapp.com", projectId: "taka-447c5", storageBucket: "taka-447c5.appspot.com", messagingSenderId: "280823696760", appId: "1:280823696760:web:1c4ac09ab62fee0fc28c8d" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_uid') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_uid', userId);
+        let userId = localStorage.getItem('mg_final_uid') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_final_uid', userId);
 
-        let userData = { balance: 0, tasksLeft: 20, lastReset: Date.now() };
+        let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now() };
 
         async function loadData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const referrer = urlParams.get('ref');
+
             const doc = await db.collection("users").doc(userId).get();
             if (doc.exists) {
                 userData = doc.data();
-                if (Date.now() - userData.lastReset > 24*60*60*1000) {
-                    userData.tasksLeft = 20;
-                    userData.lastReset = Date.now();
+                if (Date.now() - userData.lastReset > 24*60*60*1000) { 
+                    userData.tasksLeft = 20; userData.lastReset = Date.now();
+                    await db.collection("users").doc(userId).update(userData);
                 }
             } else {
-                userData.balance = 100; // Login Bonus
+                if(referrer && referrer !== userId) {
+                    const refDoc = await db.collection("users").doc(referrer).get();
+                    if(refDoc.exists) {
+                        let refData = refDoc.data();
+                        refData.balance += 300; // REFER BONUS 300
+                        await db.collection("users").doc(referrer).set(refData);
+                    }
+                }
                 await db.collection("users").doc(userId).set(userData);
             }
             updateUI();
@@ -116,7 +120,7 @@
             document.getElementById('balance').innerText = userData.balance;
             document.getElementById('task-info').innerText = "বাকি কাজ: " + userData.tasksLeft + "/২০";
             document.getElementById('display-id').innerText = userId;
-            document.getElementById('ref-url').value = window.location.href + "?ref=" + userId;
+            document.getElementById('ref-url').value = window.location.origin + window.location.pathname + "?ref=" + userId;
             if(userData.tasksLeft <= 0) {
                 document.getElementById('task-btn').disabled = true;
                 document.getElementById('task-btn').innerText = "২৪ ঘণ্টা পর আসুন";
@@ -137,9 +141,9 @@
                         userData.balance += 50;
                         userData.tasksLeft--;
                         await db.collection("users").doc(userId).set(userData);
-                        btn.disabled = false;
-                        btn.innerText = "কাজ শুরু করুন";
+                        btn.disabled = false; btn.innerText = "কাজ শুরু করুন";
                         updateUI();
+                        alert("অভিনন্দন! ৫০ পয়েন্ট পেলেন।");
                     }
                 }, 1000);
             }
@@ -149,7 +153,7 @@
             const copyText = document.getElementById("ref-url");
             copyText.select();
             navigator.clipboard.writeText(copyText.value);
-            alert("রেফার লিংক কপি হয়েছে!");
+            alert("রেফার লিংক কপি হয়েছে! ৩০০ পয়েন্ট বোনাস পান।");
         }
 
         function showP(pId, el) {
