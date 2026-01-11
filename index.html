@@ -1,176 +1,81 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Income Gach - Mini App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Income App with Ads</title>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
-    
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-Ki firestore-compat.js"></script>
     <style>
-        :root {
-            --bg-color: #f5f6ff;
-            --card-bg: #ffffff;
-            --primary: #6c5ce7;
-            --text-main: #2d3436;
-        }
-
-        body {
-            font-family: 'Hind Siliguri', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0; padding: 15px; color: var(--text-main);
-            padding-bottom: 80px;
-        }
-
-        .header { display: flex; align-items: center; margin-bottom: 20px; }
-        .profile-img { width: 50px; height: 50px; background: #ff7675; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px; }
-
-        .stats-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        .stat-box { text-align: center; }
-        .stat-box span { font-size: 12px; color: #636e72; }
-        .stat-box div { font-size: 18px; font-weight: bold; margin-top: 5px; }
-
-        .task-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .btn-main {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            color: white; border: none; padding: 15px;
-            border-radius: 12px; width: 100%; font-size: 18px;
-            font-weight: bold; cursor: pointer; margin-top: 15px;
-        }
-
-        .navbar {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: white; display: flex; justify-content: space-around;
-            padding: 12px; border-top: 1px solid #eee;
-        }
-
-        .nav-item { text-align: center; font-size: 11px; color: #636e72; cursor: pointer; }
-        .nav-item.active { color: var(--primary); font-weight: bold; }
-
-        #pages > div { display: none; }
-        #pages > div.active { display: block; }
+        body { font-family: Arial, sans-serif; text-align: center; background: #f0f2f5; }
+        .card { background: white; margin: 20px auto; padding: 20px; border-radius: 10px; width: 90%; }
+        .btn { background: #0088cc; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .ad-container { background: #ddd; height: 100px; margin: 15px 0; line-height: 100px; border: 1px dashed #999; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="profile-img" id="p-img">SR</div>
-        <div>
-            <div id="u-name" style="font-weight: 600;">লোড হচ্ছে...</div>
-            <div id="u-id" style="font-size: 12px; color: #636e72;">আইডি: 000000</div>
-        </div>
+    <div class="card">
+        <h2>আপনার ব্যালেন্স: <span id="balance">0</span> পয়েন্ট</h2>
     </div>
 
-    <div id="pages">
-        <div id="home" class="active">
-            <div class="stats-card">
-                <div class="stat-box"><span>বর্তমান ব্যালেন্স</span><div id="bal">0</div></div>
-                <div class="stat-box"><span>রেফার সংখ্যা</span><div id="ref">0</div></div>
-                <div class="stat-box"><span>মোট উপার্জন</span><div id="total">0</div></div>
-            </div>
-
-            <div class="task-card">
-                <h3>বিজ্ঞাপন দেখে উপার্জন</h3>
-                <div style="background: #f1f2f6; padding: 10px; border-radius: 10px; margin: 15px 0;">
-                    দৈনিক সীমা: <span id="limit">0/20</span>
-                </div>
-                <button class="btn-main" onclick="doTask()">উপার্জন শুরু করুন</button>
-            </div>
-        </div>
-
-        <div id="withdraw">
-            <div class="task-card">
-                <h3>উইথড্র রিকোয়েস্ট</h3>
-                <input type="number" id="w-amount" placeholder="পরিমাণ লিখুন" style="width:90%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ddd;">
-                <select id="w-method" style="width:98%; padding:12px; border-radius:8px; border:1px solid #ddd;">
-                    <option value="bkash">বিকাশ</option>
-                    <option value="nagad">নগদ</option>
-                </select>
-                <button class="btn-main" onclick="withdraw()">উত্তোলন করুন</button>
-            </div>
-        </div>
+    <div class="ad-container" id="ad-slot">
+        গুগল বিজ্ঞাপনের জায়গা
     </div>
 
-    <div class="navbar">
-        <div class="nav-item active" onclick="showPage('home')">🏠<br>ড্যাশবোর্ড</div>
-        <div class="nav-item" onclick="showPage('withdraw')">💳<br>উত্তোলন</div>
-        <div class="nav-item" onclick="copyRef()">🔗<br>আমন্ত্রণ</div>
+    <div class="card">
+        <h3>টাস্ক লিস্ট</h3>
+        <div id="task-list">টাস্ক লোড হচ্ছে...</div>
+    </div>
+
+    <div class="card">
+        <h3>টাকা তুলুন (Withdraw)</h3>
+        <input type="number" id="withdraw-amount" placeholder="পয়েন্ট পরিমাণ">
+        <input type="text" id="bkash-num" placeholder="বিকাশ/নগদ নম্বর">
+        <button class="btn" onclick="withdraw()">আবেদন করুন</button>
     </div>
 
     <script>
-        // --- আপনার দেওয়া Firebase Config এখানে বসানো হয়েছে ---
+        // আপনার Firebase কনফিগ এখানে বসান
         const firebaseConfig = {
-          apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M",
-          authDomain: "taka-447c5.firebaseapp.com",
-          projectId: "taka-447c5",
-          storageBucket: "taka-447c5.firebasestorage.app",
-          messagingSenderId: "280823696760",
-          appId: "1:280823696760:web:1c4ac09ab62fee0fc28c8d"
+            apiKey: "AIzaSy...",
+            projectId: "your-project-id",
+            // ... বাকি অংশ
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        const tele = window.Telegram.WebApp;
-        tele.expand();
-        const user = tele.initDataUnsafe.user;
-        const uid = user ? user.id.toString() : "test_dev";
+        // টাস্ক লোড করা
+        db.collection("tasks").onSnapshot((snapshot) => {
+            const list = document.getElementById("task-list");
+            list.innerHTML = "";
+            snapshot.forEach((doc) => {
+                const task = doc.data();
+                list.innerHTML += `
+                    <p>${task.title} - ${task.reward} পয়েন্ট 
+                    <button onclick="doTask('${doc.id}', '${task.link}', ${task.reward})">কাজ শুরু</button></p>
+                `;
+            });
+        });
 
-        async function load() {
-            document.getElementById('u-name').innerText = user ? user.first_name : "ব্যবহারকারী";
-            document.getElementById('u-id').innerText = "আইডি: " + uid;
-            
-            const doc = await db.collection("users").doc(uid).get();
-            if(doc.exists) {
-                const data = doc.data();
-                document.getElementById('bal').innerText = data.balance;
-                document.getElementById('ref').innerText = data.referrals || 0;
-                document.getElementById('total').innerText = data.totalEarned || 0;
-            } else {
-                await db.collection("users").doc(uid).set({ balance: 20, referrals: 0, totalEarned: 20 });
-                load();
+        function doTask(id, link, reward) {
+            window.open(link, '_blank');
+            // কাজ শেষ হলে পয়েন্ট যোগ করার লজিক এখানে হবে
+            alert(reward + " পয়েন্ট পাওয়ার জন্য টাস্কটি সম্পূর্ণ করুন।");
+        }
+
+        function withdraw() {
+            const points = document.getElementById("withdraw-amount").value;
+            const phone = document.getElementById("bkash-num").value;
+            if(points && phone) {
+                db.collection("withdraws").add({
+                    points: points,
+                    phone: phone,
+                    status: "Pending",
+                    time: new Date()
+                }).then(() => alert("আবেদন সফল হয়েছে!"));
             }
         }
-
-        async function doTask() {
-            await db.collection("users").doc(uid).update({
-                balance: firebase.firestore.FieldValue.increment(20),
-                totalEarned: firebase.firestore.FieldValue.increment(20)
-            });
-            alert("সফল! ২০ টাকা বোনাস পেয়েছেন।");
-            load();
-        }
-
-        function showPage(p) {
-            document.querySelectorAll('#pages > div').forEach(d => d.classList.remove('active'));
-            document.getElementById(p).classList.add('active');
-        }
-
-        function copyRef() {
-            const link = "https://t.me/YourBotName?start=" + uid;
-            navigator.clipboard.writeText(link);
-            alert("রেফার লিঙ্ক কপি হয়েছে!");
-        }
-
-        load();
     </script>
 </body>
 </html>
