@@ -47,7 +47,7 @@
     <div id="refer-page" class="page">
         <h2 align="center">রেফার বোনাস ৩০০</h2>
         <div class="card">
-            <p>আপনার রেফার লিংক কপি করে শেয়ার করুন এবং প্রতি রেফারে ৩০০ পয়েন্ট বোনাস নিন!</p>
+            <p>আপনার রেফার লিংক কপি করে শেয়ার করুন এবং ৩০০ পয়েন্ট বোনাস নিন!</p>
             <input type="text" id="ref-url" readonly>
             <button class="btn-action" onclick="copyRef()">লিংক কপি করুন</button>
         </div>
@@ -61,7 +61,7 @@
                 <option value="bkash">বিকাশ (bKash)</option>
                 <option value="nagad">নগদ (Nagad)</option>
             </select>
-            <input type="number" id="phone" placeholder="নম্বর লিখুন">
+            <input type="number" id="phone" placeholder="বিকাশ/নগদ নম্বর দিন">
             <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট</button>
         </div>
     </div>
@@ -87,8 +87,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_final_v12') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_final_v12', userId);
+        let userId = localStorage.getItem('mg_final_v13') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_final_v13', userId);
 
         let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now() };
 
@@ -128,7 +128,8 @@
 
         async function startTask() {
             if (userData.tasksLeft > 0) {
-                window.open("https://www.effectivegatecpm.com/wpnbkgp7y5?key=7a134e0bd292f7a70f39ce3d7dfd36c8", "_blank");
+                // New Link Added Below
+                window.open("https://www.effectivegatecpm.com/f0zydmuyb?key=23d3398940cf4abc8b35403ad98a89c8", "_blank");
                 let timeLeft = 15;
                 const btn = document.getElementById('task-btn');
                 btn.disabled = true;
@@ -152,7 +153,7 @@
             const phone = document.getElementById('phone').value;
             if(userData.balance < 5000) { alert("পর্যাপ্ত পয়েন্ট নেই।"); }
             else if(phone.length < 11) { alert("সঠিক নম্বর দিন।"); }
-            else { alert("রিকোয়েস্ট সফল হয়েছে!"); }
+            else { alert("উইথড্র রিকোয়েস্ট সফল হয়েছে!"); }
         }
 
         function copyRef() { const t = document.getElementById("ref-url"); t.select(); navigator.clipboard.writeText(t.value); alert("লিংক কপি হয়েছে!"); }
@@ -162,4 +163,3 @@
     </script>
 </body>
 </html>
-
