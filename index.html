@@ -3,62 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money Garden Pro</title>
+    <title>Money Garden Pro - Trusted Earning</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6549982487669310" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
     <style>
-        :root { --primary-bg: #0f172a; --secondary-bg: #1e293b; --accent: #f43f5e; --text: #ffffff; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--primary-bg); color: var(--text); padding-bottom: 80px; }
-        .page { display: none; padding: 20px; animation: fadeIn 0.3s; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        :root {
+            --primary-bg: #0b0e14;
+            --secondary-bg: #1a1f26;
+            --accent: #f43f5e;
+            --gradient: linear-gradient(135deg, #6366f1, #a855f7);
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+        }
 
-        /* Welcome Banner Modal */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-main);
+            padding-bottom: 90px;
+        }
+
+        .page { display: none; padding: 20px; animation: slideUp 0.4s ease; }
+        .active { display: block; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* Welcome Modal */
         #welcome-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000;
+            background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 2000;
         }
-        .modal-content {
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            padding: 30px; border-radius: 25px; text-align: center; width: 80%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .modal-card {
+            background: var(--gradient);
+            padding: 35px 25px; border-radius: 30px; text-align: center; width: 85%;
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
         }
 
-        /* Styles */
-        .header { background: linear-gradient(135deg, #6366f1, #a855f7); padding: 40px 20px; text-align: center; border-bottom-radius: 30px; margin: -20px -20px 20px -20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;}
-        .balance-box { background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 50px; display: inline-block; margin-top: 10px; font-weight: bold; }
-        .card { background: var(--secondary-bg); padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 15px; }
-        .btn-main { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        /* Header & Balance */
+        .header {
+            background: var(--gradient);
+            padding: 50px 20px; text-align: center;
+            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
+            margin: -20px -20px 25px -20px;
+        }
+        .balance-pill {
+            background: rgba(255,255,255,0.15);
+            padding: 12px 25px; border-radius: 100px;
+            display: inline-block; margin-top: 15px;
+            font-size: 1.4rem; font-weight: 700;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
+        }
 
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #1e293b; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #334155; }
-        .nav-item { text-align: center; font-size: 0.8rem; color: #94a3b8; cursor: pointer; flex: 1; }
-        .active-nav { color: #f43f5e; font-weight: bold; }
+        /* Cards & Buttons */
+        .card { background: var(--secondary-bg); padding: 20px; border-radius: 24px; margin-bottom: 20px; border: 1px solid #2d3748; }
+        .btn-action {
+            background: var(--accent); color: white; border: none; padding: 16px;
+            width: 100%; border-radius: 16px; font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: 0.3s;
+        }
+        .btn-action:active { transform: scale(0.96); }
+
+        /* Settings List */
+        .setting-item {
+            display: flex; align-items: center; padding: 15px 0;
+            border-bottom: 1px solid #2d3748; cursor: pointer;
+        }
+        .setting-item:last-child { border: none; }
+        .setting-icon { font-size: 20px; margin-right: 15px; width: 35px; text-align: center; }
+
+        /* Inputs */
+        input, select {
+            width: 100%; padding: 14px; margin: 12px 0; border-radius: 14px;
+            border: 1px solid #334155; background: #0b0e14; color: white; box-sizing: border-box;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; background: #161b22;
+            display: flex; justify-content: space-around; padding: 15px 0;
+            border-top: 1px solid #2d3748; z-index: 1000;
+        }
+        .nav-link { text-align: center; font-size: 0.75rem; color: var(--text-dim); text-decoration: none; transition: 0.3s; }
+        .nav-link.active-nav { color: var(--accent); }
+        .nav-icon { font-size: 22px; display: block; margin-bottom: 4px; }
     </style>
 </head>
 <body>
 
     <div id="welcome-modal">
-        <div class="modal-content">
-            <h2 style="margin-top: 0;">স্বাগতম! 🎉</h2>
-            <p>আমাদের অ্যাপে যোগ দেওয়ার জন্য আপনি পেয়েছেন <b>১০০ পয়েন্ট</b> বোনাস!</p>
-            <button class="btn-main" style="background: white; color: #6366f1;" onclick="closeModal()">বোনাস নিন</button>
+        <div class="modal-card">
+            <h2 style="margin: 0;">অভিনন্দন! 🎉</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9;">আপনি ১০০ পয়েন্ট জয়েনিং বোনাস পেয়েছেন।</p>
+            <button class="btn-action" style="background: white; color: #6366f1;" onclick="closeWelcome()">বোনাস সংগ্রহ করুন</button>
         </div>
     </div>
 
     <div id="home-page" class="page active">
         <div class="header">
-            <h3>Money Garden 💰</h3>
-            <div class="balance-box">ব্যালেন্স: <span id="balance">100.00</span> ৳</div>
+            <h2 style="margin: 0;">Money Garden 💰</h2>
+            <div class="balance-pill">ব্যালেন্স: <span id="main-balance">100.00</span> ৳</div>
         </div>
-        <div class="card">
-            <span style="font-size: 30px;">📺</span>
-            <h4>দৈনিক কাজ</h4>
-            <p style="color: #94a3b8;">০/১০ সম্পূর্ণ</p>
+        <div class="card" style="display: flex; justify-content: space-around; text-align: center;">
+            <div><span style="font-size: 30px;">📺</span><p>টাস্ক</p></div>
+            <div><span style="font-size: 30px;">🏆</span><p>লিডারবোর্ড</p></div>
         </div>
-        <div class="card">
+        <div class="card" style="border: 2px dashed #444; min-height: 150px; display: flex; align-items: center; justify-content: center; color: var(--text-dim);">
             <p>আপনার বিজ্ঞাপন এখানে লোড হবে</p>
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6549982487669310" data-ad-slot="AUTO_ADS" data-ad-format="auto"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -66,34 +118,63 @@
     </div>
 
     <div id="refer-page" class="page">
-        <h2 style="text-align: center;">রেফার করুন ও আয় করুন 👥</h2>
+        <h2 style="text-align: center;">রেফার করে আয় করুন 👥</h2>
         <div class="card">
-            <p>প্রতি সফল রেফারে পাবেন <b>১০০ পয়েন্ট</b> বোনাস!</p>
-            <input type="text" readonly value="https://t.me/moneygarden_bot?start=user123" id="ref-link">
-            <button class="btn-main" onclick="copyLink()">লিঙ্ক কপি করুন</button>
+            <p style="color: var(--text-dim);">প্রতিটি রেফারে পাবেন ১০০ পয়েন্ট বোনাস। আপনার বন্ধুদের ইনভাইট করুন!</p>
+            <input type="text" id="ref-url" readonly value="https://moneygarden.vercel.app/join?ref=user77">
+            <button class="btn-action" onclick="copyReferral()">লিঙ্ক কপি করুন</button>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 style="text-align: center;">টাকা উত্তোলন 💳</h2>
-        <div style="background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid #f43f5e;">
-            <p style="font-size: 0.9rem; margin: 0;">💰 <b>কনভার্সন রেট:</b> ৫০০০ পয়েন্ট = ৫০০ টাকা।</p>
+        <h2 style="text-align: center;">উইথড্র রিকোয়েস্ট 💳</h2>
+        <div class="card" style="background: rgba(244, 63, 94, 0.1); border-color: var(--accent);">
+            <p style="margin: 0; font-weight: bold;">💎 ৫০০০ পয়েন্ট = ৫০০ টাকা</p>
         </div>
         <div class="card">
-            <select id="p-method">
+            <select id="pay-method">
                 <option value="Bkash">বিকাশ (Bkash)</option>
                 <option value="Nagad">নগদ (Nagad)</option>
             </select>
-            <input type="number" id="p-amount" placeholder="পয়েন্টের পরিমাণ (সর্বনিম্ন ৫০০০)">
-            <input type="text" id="p-phone" placeholder="বিকাশ/নগদ নম্বর">
-            <button class="btn-main" onclick="requestMoney()">উইথড্র রিকোয়েস্ট দিন</button>
+            <input type="number" id="pay-amount" placeholder="পয়েন্টের পরিমাণ (Min: 5000)">
+            <input type="text" id="pay-number" placeholder="আপনার নম্বর দিন">
+            <button class="btn-action" onclick="handleWithdraw()">সাবমিট করুন</button>
         </div>
     </div>
 
+    <div id="settings-page" class="page">
+        <h2 style="text-align: center;">সেটিংস ও প্রোফাইল ⚙️</h2>
+        <div class="card" style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: var(--gradient); border-radius: 50%; margin: 0 auto 15px; border: 3px solid #fff;"></div>
+            <h3 style="margin: 0;">ইউজার প্রোফাইল</h3>
+            <p style="color: var(--text-dim); font-size: 0.9rem;">ID: #MG2026 Bangladesh</p>
+        </div>
+        
+        <div class="card">
+            <div class="setting-item">
+                <span class="setting-icon">👤</span> <span>প্রোফাইল আপডেট</span>
+            </div>
+            <div class="setting-item">
+                <span class="setting-icon">🔒</span> <span>পাসওয়ার্ড পরিবর্তন</span>
+            </div>
+            <div class="setting-item" onclick="window.location.href='https://t.me/yourchannel'">
+                <span class="setting-icon">📢</span> <span>টেলিগ্রাম চ্যানেল</span>
+            </div>
+            <div class="setting-item">
+                <span class="setting-icon">❓</span> <span>সাপোর্ট সেন্টার</span>
+            </div>
+            <div class="setting-item" style="color: var(--accent); border: none;">
+                <span class="setting-icon">🚪</span> <span>লগ আউট</span>
+            </div>
+        </div>
+        <p style="text-align: center; font-size: 0.8rem; color: #444;">Version 2.0.1 (Trusted)</p>
+    </div>
+
     <div class="bottom-nav">
-        <div class="nav-item active-nav" onclick="changePage('home-page', this)">🏠<br>হোম</div>
-        <div class="nav-item" onclick="changePage('refer-page', this)">👥<br>রেফার</div>
-        <div class="nav-item" onclick="changePage('withdraw-page', this)">💳<br>উইথড্র</div>
+        <div class="nav-link active-nav" onclick="navTo('home-page', this)"><span class="nav-icon">🏠</span>হোম</div>
+        <div class="nav-link" onclick="navTo('refer-page', this)"><span class="nav-icon">👥</span>রেফার</div>
+        <div class="nav-link" onclick="navTo('withdraw-page', this)"><span class="nav-icon">💳</span>উইথড্র</div>
+        <div class="nav-link" onclick="navTo('settings-page', this)"><span class="nav-icon">⚙️</span>সেটিংস</div>
     </div>
 
     <script>
@@ -108,39 +189,37 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        function closeModal() { document.getElementById('welcome-modal').style.display = 'none'; }
+        function closeWelcome() { document.getElementById('welcome-modal').style.display = 'none'; }
 
-        function changePage(pageId, navElement) {
+        function navTo(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
-            navElement.classList.add('active-nav');
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav'));
+            el.classList.add('active-nav');
         }
 
-        function copyLink() {
-            var copyText = document.getElementById("ref-link");
-            copyText.select();
-            document.execCommand("copy");
-            alert("রেফারেল লিঙ্ক কপি হয়েছে!");
+        function copyReferral() {
+            const input = document.getElementById('ref-url');
+            input.select();
+            document.execCommand('copy');
+            alert('রেফার লিঙ্ক কপি হয়েছে!');
         }
 
-        function requestMoney() {
-            const amount = document.getElementById('p-amount').value;
-            const phone = document.getElementById('p-phone').value;
-            const method = document.getElementById('p-method').value;
+        function handleWithdraw() {
+            const amount = document.getElementById('pay-amount').value;
+            const number = document.getElementById('pay-number').value;
+            const method = document.getElementById('pay-method').value;
 
-            if(amount >= 5000 && phone) {
+            if(amount >= 5000 && number) {
                 db.collection("withdraws").add({
                     amount: amount,
-                    phone: phone,
+                    number: number,
                     method: method,
                     status: "Pending",
-                    timestamp: new Date().toLocaleString()
-                }).then(() => {
-                    alert("আপনার ৫০০ টাকা (৫০০০ পয়েন্ট) এর রিকোয়েস্ট জমা হয়েছে!");
-                });
+                    time: new Date().toLocaleString()
+                }).then(() => alert("সাফল্যের সাথে উইথড্র রিকোয়েস্ট পাঠানো হয়েছে!"));
             } else {
-                alert("সর্বনিম্ন ৫০০০ পয়েন্ট এবং সঠিক নম্বর দিন!");
+                alert("সর্বনিম্ন ৫০০০ পয়েন্ট এবং নম্বর প্রদান করুন।");
             }
         }
     </script>
