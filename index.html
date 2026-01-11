@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money Garden Pro</title>
+    <title>Money Garden Pro - Earn Real Cash</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
     <style>
         :root { --primary-bg: #0b0e14; --secondary-bg: #1a1f26; --accent: #f43f5e; --gradient: linear-gradient(135deg, #6366f1, #a855f7); --text-main: #ffffff; }
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 80px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 80px; }
         .page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -18,18 +18,17 @@
         .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; display: inline-block; margin-top: 10px; backdrop-filter: blur(5px); }
         
-        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9rem; border-left: 5px solid #ffeeba; }
+        .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; }
+        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 0.85rem; border-left: 5px solid #ffeeba; text-align: left; }
         
-        .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; transition: 0.3s; }
-        .card:active { transform: scale(0.98); }
-        
-        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.3); }
-        .btn-action:disabled { background: #4b5563; box-shadow: none; cursor: not-allowed; }
+        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; }
+        .btn-action:disabled { background: #4b5563; box-shadow: none; }
         
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 100; }
         .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.75rem; text-decoration: none; }
         .active-nav { color: var(--accent); }
-        .nav-icon { font-size: 1.4rem; margin-bottom: 4px; }
+        
+        input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
     </style>
 </head>
 <body>
@@ -40,48 +39,59 @@
             <div class="balance-pill">ব্যালেন্স: <span id="balance">0</span> ৳</div>
         </div>
         
-        <div class="card" style="margin-top: 25px;">
+        <div class="card">
             <div class="notice-board">
-                <b>নোটিশ:</b> প্রতিদিন ২০টি কাজ সম্পন্ন করুন। প্রতি কাজে ৫০ পয়েন্ট! ৫০০০ পয়েন্ট হলে ৫০০ টাকা সরাসরি বিকাশ/নগদে।
+                <b>জরুরি নোটিশ:</b> ১০০ পয়েন্ট বোনাস পেয়েছেন! প্রতিদিন ২০টি করে কাজ সম্পন্ন করুন। প্রতি কাজে ৫০ পয়েন্ট পাবেন। ৫০০০ পয়েন্টে ৫০০ টাকা বিকাশ/নগদে উত্তোলন করুন।
             </div>
             <div style="font-size: 45px;">📺</div>
-            <h3>দৈনিক কাজ (Ads)</h3>
+            <h3>ডেইলি টাস্ক (Ads)</h3>
             <p id="task-info" style="color: #94a3b8;">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
         </div>
+    </div>
 
+    <div id="refer-page" class="page">
+        <h2 align="center">রেফার করে ইনকাম</h2>
         <div class="card">
-            <h3>সাপোর্ট সেন্টার</h3>
-            <p style="font-size: 0.85rem; color: #94a3b8;">যেকোনো প্রয়োজনে আমাদের টেলিগ্রামে যোগাযোগ করুন।</p>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_link')">টেলিগ্রাম চ্যানেল</button>
+            <p>আপনার রেফার আইডি:</p>
+            <h3 id="my-refer-code" style="color: #f43f5e; letter-spacing: 2px;">LOADING...</h3>
+            <p style="font-size: 0.9rem; color: #94a3b8;">আপনার বন্ধুদের ইনভাইট করুন এবং প্রতি রেফারে ৫০ পয়েন্ট বোনাস জিতুন!</p>
+            <button class="btn-action" onclick="copyRefer()">রেফার আইডি কপি করুন</button>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 align="center">টাকা উত্তোলন করুন</h2>
+        <h2 align="center">উইথড্র করুন</h2>
         <div class="card">
             <p>মিনিমাম উইথড্র: ৫০০০ পয়েন্ট (৫০০ টাকা)</p>
-            <select style="width:100%; padding:10px; border-radius:5px; margin-bottom:10px;">
-                <option>বিকাশ</option>
-                <option>নগদ</option>
+            <select id="withdraw-method">
+                <option value="bkash">বিকাশ</option>
+                <option value="nagad">নগদ</option>
             </select>
-            <input type="number" placeholder="আপনার নম্বর দিন" style="width:94%; padding:10px; border-radius:5px; border:none; margin-bottom:10px;">
-            <button class="btn-action">উইথড্র রিকোয়েস্ট পাঠান</button>
+            <input type="number" id="phone-number" placeholder="আপনার বিকাশ/নগদ নম্বর দিন">
+            <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট পাঠান</button>
         </div>
     </div>
 
-    <div id="refer-page" class="page"><h2 align="center">রেফার করে ইনকাম</h2><p align="center">আপনার রেফার কোড: MG123</p></div>
-    <div id="settings-page" class="page"><h2 align="center">সেটিংস</h2><p align="center">ভার্সন ১.০.১</p></div>
+    <div id="settings-page" class="page">
+        <h2 align="center">সেটিংস ও সাপোর্ট</h2>
+        <div class="card">
+            <p>আপনার ইউজার আইডি: <span id="display-id" style="color: #a855f7;">...</span></p>
+            <p>অ্যাপ ভার্সন: ১.০.১ (প্রো)</p>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/your_telegram')">টেলিগ্রাম সাপোর্ট চ্যানেল</button>
+            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ ডাটা রিফ্রেশ করুন</button>
+        </div>
+    </div>
 
     <div class="bottom-nav">
-        <div class="nav-link active-nav" onclick="showP('home-page', this)"><div class="nav-icon">🏠</div>হোম</div>
-        <div class="nav-link" onclick="showP('refer-page', this)"><div class="nav-icon">👥</div>রেফার</div>
-        <div class="nav-link" onclick="showP('withdraw-page', this)"><div class="nav-icon">💳</div>উইথড্র</div>
-        <div class="nav-link" onclick="showP('settings-page', this)"><div class="nav-icon">⚙️</div>সেটিংস</div>
+        <div class="nav-link active-nav" onclick="showP('home-page', this)">🏠<br>হোম</div>
+        <div class="nav-link" onclick="showP('refer-page', this)">👥<br>রেফার</div>
+        <div class="nav-link" onclick="showP('withdraw-page', this)">💳<br>উইথড্র</div>
+        <div class="nav-link" onclick="showP('settings-page', this)">⚙️<br>সেটিংস</div>
     </div>
 
     <script>
-        // Firebase Configuration
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M",
             authDomain: "taka-447c5.firebaseapp.com",
@@ -93,16 +103,15 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Unique User Logic (Simple version)
-        let userId = localStorage.getItem('mg_user_id');
+        // User Identity
+        let userId = localStorage.getItem('mg_pro_uid');
         if(!userId) {
-            userId = "user_" + Math.floor(Math.random() * 1000000);
-            localStorage.setItem('mg_user_id', userId);
+            userId = "MG" + Math.floor(1000 + Math.random() * 9000);
+            localStorage.setItem('mg_pro_uid', userId);
         }
 
         let userData = { balance: 0, tasksLeft: 20, lastReset: Date.now() };
 
-        // Load Data and Apply 24h Limit
         async function loadData() {
             const doc = await db.collection("users").doc(userId).get();
             if (doc.exists) {
@@ -112,10 +121,13 @@
                 if (now - userData.lastReset > 24 * 60 * 60 * 1000) {
                     userData.tasksLeft = 20;
                     userData.lastReset = now;
-                    await db.collection("users").doc(userId).set(userData);
+                    await db.collection("users").doc(userId).update(userData);
                 }
             } else {
+                // New User Bonus (100 Points)
+                userData.balance = 100;
                 await db.collection("users").doc(userId).set(userData);
+                alert("স্বাগতম! লগইন বোনাস হিসেবে ১০০ পয়েন্ট আপনার ব্যালেন্সে যোগ হয়েছে।");
             }
             updateUI();
         }
@@ -123,15 +135,16 @@
         function updateUI() {
             document.getElementById('balance').innerText = userData.balance;
             document.getElementById('task-info').innerText = "বাকি কাজ: " + userData.tasksLeft + "/২০";
+            document.getElementById('my-refer-code').innerText = userId;
+            document.getElementById('display-id').innerText = userId;
             if(userData.tasksLeft <= 0) {
                 document.getElementById('task-btn').disabled = true;
-                document.getElementById('task-btn').innerText = "আগামীকাল আবার আসুন (২৪ ঘণ্টা পর)";
+                document.getElementById('task-btn').innerText = "আগামীকাল আবার আসুন";
             }
         }
 
         async function startTask() {
             if (userData.tasksLeft > 0) {
-                // Open Ad Link
                 window.open("https://www.effectivegatecpm.com/wpnbkgp7y5?key=7a134e0bd292f7a70f39ce3d7dfd36c8", "_blank");
                 
                 let timeLeft = 15;
@@ -147,16 +160,31 @@
                         userData.balance += 50;
                         userData.tasksLeft--;
                         
-                        // Save Data to Firebase
-                        await db.collection("users").doc(userId).set(userData);
+                        await db.collection("users").doc(userId).update(userData);
                         
                         btn.innerText = "কাজ শুরু করুন";
                         btn.disabled = false;
                         updateUI();
-                        alert("অভিনন্দন! আপনি ৫০ পয়েন্ট পেয়েছেন।");
+                        alert("অভিনন্দন! ৫০ পয়েন্ট যোগ হয়েছে।");
                     }
                 }, 1000);
             }
+        }
+
+        function handleWithdraw() {
+            const num = document.getElementById('phone-number').value;
+            if(userData.balance < 5000) {
+                alert("আপনার পর্যাপ্ত ব্যালেন্স নেই। ৫০০০ পয়েন্ট প্রয়োজন।");
+            } else if(num.length < 11) {
+                alert("দয়া করে সঠিক মোবাইল নম্বর দিন।");
+            } else {
+                alert("আপনার উইথড্র রিকোয়েস্টটি পেন্ডিং আছে। ২৪ ঘণ্টার মধ্যে পেমেন্ট পাবেন।");
+            }
+        }
+
+        function copyRefer() {
+            navigator.clipboard.writeText(userId);
+            alert("আপনার রেফার আইডি কপি হয়েছে: " + userId);
         }
 
         function showP(pId, el) {
