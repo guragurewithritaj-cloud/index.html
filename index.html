@@ -26,11 +26,9 @@
             padding-bottom: 80px;
         }
 
-        /* Page Display Logic */
         .page { display: none; padding: 20px; }
         .active { display: block; }
 
-        /* Header Design */
         .header {
             background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             padding: 40px 20px;
@@ -49,7 +47,6 @@
             font-weight: bold;
         }
 
-        /* Menu Grid */
         .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -64,7 +61,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* Form Styles */
         .withdraw-form {
             background: var(--secondary-bg);
             padding: 20px;
@@ -72,7 +68,7 @@
             margin-top: 20px;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -94,7 +90,6 @@
             cursor: pointer;
         }
 
-        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -141,17 +136,35 @@
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 style="text-align: center;">টাকা উত্তোলন 💳</h2>
+        <h2 style="text-align: center;">টাকা উত্তোলন করুন 💳</h2>
+        
+        <div style="background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid #f43f5e;">
+            <small style="color: #94a3b8; display: block; margin-bottom: 5px;">⚠️ নিয়মাবলী:</small>
+            <p style="font-size: 0.9rem; margin: 0;">১. পেমেন্ট রিকোয়েস্ট দেওয়ার ২৪ ঘণ্টার মধ্যে টাকা পাবেন।<br>
+            ২. ভুল নম্বর দিলে কর্তৃপক্ষ দায়ী থাকবে না।<br>
+            ৩. সর্বনিম্ন ৫০০০ পয়েন্ট হলে উইথড্র করা যাবে।</p>
+        </div>
+
         <div class="withdraw-form">
-            <input type="number" id="p-amount" placeholder="পয়েন্টের পরিমাণ">
-            <input type="text" id="p-phone" placeholder="বিকাশ/নগদ নম্বর">
+            <label>পেমেন্ট মেথড সিলেক্ট করুন:</label>
+            <select id="p-method">
+                <option value="Bkash">বিকাশ (Bkash)</option>
+                <option value="Nagad">নগদ (Nagad)</option>
+            </select>
+
+            <label>পয়েন্টের পরিমাণ:</label>
+            <input type="number" id="p-amount" placeholder="উদা: ৫০০০">
+            
+            <label>বিকাশ/নগদ নম্বর:</label>
+            <input type="text" id="p-phone" placeholder="০১৭XXXXXXXX">
+            
             <button class="btn-main" onclick="requestMoney()">আবেদন জমা দিন</button>
         </div>
     </div>
 
     <div id="settings-page" class="page">
         <h2 style="text-align: center;">সেটিংস ⚙️</h2>
-        <p style="text-align: center;">অ্যাকাউন্ট ভেরিফিকেশন এবং অন্যান্য তথ্য।</p>
+        <p style="text-align: center;">আপনার প্রোফাইল এবং সাপোর্ট তথ্য এখানে থাকবে।</p>
     </div>
 
     <div class="bottom-nav">
@@ -161,7 +174,7 @@
     </div>
 
     <script>
-        // Firebase Configuration
+        // Firebase Config
         const firebaseConfig = {
           apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M",
           authDomain: "taka-447c5.firebaseapp.com",
@@ -173,35 +186,34 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Page Navigation Function
+        // Page Switcher
         function changePage(pageId, navElement) {
-            // Hide all pages
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Show selected page
             document.getElementById(pageId).classList.add('active');
-            
-            // Highlight active nav item
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
             navElement.classList.add('active-nav');
         }
 
-        // Withdraw Logic
+        // Withdraw Request
         function requestMoney() {
+            const method = document.getElementById('p-method').value;
             const amount = document.getElementById('p-amount').value;
             const phone = document.getElementById('p-phone').value;
+
             if(amount && phone) {
                 db.collection("withdraws").add({
+                    method: method,
                     amount: amount,
                     phone: phone,
                     status: "Pending",
-                    timestamp: new Date()
+                    timestamp: new Date().toLocaleString()
                 }).then(() => {
-                    alert("রিকোয়েস্ট পাঠানো হয়েছে!");
+                    alert("আপনার " + method + " রিকোয়েস্টটি সফল হয়েছে!");
                     document.getElementById('p-amount').value = "";
                     document.getElementById('p-phone').value = "";
                 });
             } else {
-                alert("সব তথ্য পূরণ করুন!");
+                alert("দয়া করে সব তথ্য পূরণ করুন!");
             }
         }
     </script>
