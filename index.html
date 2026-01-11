@@ -12,143 +12,145 @@
 
     <style>
         :root {
-            --primary-bg: #1a1a2e;
-            --secondary-bg: #16213e;
-            --accent-color: #e94560;
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --accent-color: #f43f5e;
+            --card-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             --text-color: #ffffff;
-            --card-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--primary-bg);
             color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding-bottom: 80px;
         }
 
+        .page { display: none; padding: 20px; animation: fadeIn 0.3s; }
+        .active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Header Design */
         .header {
-            width: 100%;
-            padding: 40px 20px;
             background: var(--card-gradient);
+            padding: 40px 20px;
             text-align: center;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
         }
 
-        .profile-pic {
-            width: 80px;
-            height: 80px;
-            background: #ddd;
-            border-radius: 50%;
-            margin: 0 auto 10px;
-            border: 3px solid #fff;
-        }
-
-        .balance-card {
-            background: rgba(255, 255, 255, 0.2);
+        .balance-box {
+            background: rgba(255, 255, 255, 0.15);
             padding: 10px 25px;
             border-radius: 50px;
             display: inline-block;
-            margin-top: 15px;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            margin-top: 10px;
+            backdrop-filter: blur(5px);
         }
 
-        .container {
-            width: 90%;
-            max-width: 400px;
-            margin-top: -20px;
-        }
-
-        .ad-box {
-            background: var(--secondary-bg);
-            border: 1px dashed #444;
-            border-radius: 15px;
-            margin: 20px 0;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-        }
-
-        .grid-menu {
+        /* Grid Menu */
+        .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-bottom: 25px;
+            margin-top: 10px;
         }
 
-        .menu-item {
+        .card {
             background: var(--secondary-bg);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: 0.3s;
-        }
-
-        .menu-item:active { transform: scale(0.95); }
-
-        .withdraw-section {
-            background: var(--secondary-bg);
-            padding: 20px;
+            padding: 25px 15px;
             border-radius: 20px;
-            margin-bottom: 80px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Input Styles */
+        .withdraw-form {
+            background: var(--secondary-bg);
+            padding: 30px 20px;
+            border-radius: 25px;
+            margin-top: 20px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border: none;
-            background: #0f3460;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #0f172a;
             color: white;
             box-sizing: border-box;
+            font-size: 1rem;
         }
 
-        .btn-submit {
+        .btn-main {
             background: var(--accent-color);
             color: white;
             border: none;
-            padding: 15px;
+            padding: 16px;
             width: 100%;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: bold;
+            font-size: 1.1rem;
             cursor: pointer;
+            margin-top: 10px;
         }
 
-        /* Bottom Nav */
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             width: 100%;
-            background: #16213e;
+            background: #1e293b;
             display: flex;
             justify-content: space-around;
             padding: 15px 0;
-            border-top: 1px solid #333;
+            border-top: 1px solid #334155;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
         }
+
+        .nav-item {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+
+        .nav-item.active-nav { color: #f43f5e; font-weight: bold; }
+        .nav-icon { font-size: 22px; display: block; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="profile-pic"></div>
-        <h3>স্বাগতম, ইউজার!</h3>
-        <div class="balance-card">
-            ব্যালেন্স: <span id="balance">0.00</span> TAKA 💰
+    <div id="home" class="page active">
+        <div class="header" style="margin: -20px -20px 20px -20px;">
+            <div style="width: 70px; height: 70px; background: #fff; border-radius: 50%; margin: 0 auto; border: 3px solid #f43f5e;"></div>
+            <h3>Money Garden 💰</h3>
+            <div class="balance-box">ব্যালেন্স: <span id="user-balance">0.00</span> ৳</div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="ad-box">
+        <div class="grid-container">
+            <div class="card">
+                <span style="font-size: 30px;">📺</span>
+                <h4>দৈনিক কাজ</h4>
+                <p style="color: #94a3b8;">০/১০ সম্পূর্ণ</p>
+            </div>
+            <div class="card">
+                <span style="font-size: 30px;">👥</span>
+                <h4>রেফার</h4>
+                <p style="color: #94a3b8;">বোনাস ৫০ ৳</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px; width: auto;">
+            <p>আপনার বিজ্ঞাপন এখানে লোড হবে</p>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-6549982487669310"
@@ -157,35 +159,36 @@
                  data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
+    </div>
 
-        <div class="grid-menu">
-            <div class="menu-item">
-                <div style="font-size: 24px;">📺</div>
-                <p>দৈনিক কাজ</p>
-                <small id="task-count">0/10</small>
-            </div>
-            <div class="menu-item">
-                <div style="font-size: 24px;">👥</div>
-                <p>রেফার করুন</p>
-            </div>
+    <div id="withdraw" class="page">
+        <h2 style="text-align: center;">টাকা উত্তোলন করুন 💳</h2>
+        <div class="withdraw-form">
+            <label>পয়েন্টের পরিমাণ</label>
+            <input type="number" id="points" placeholder="উদা: ৫০০০">
+            
+            <label>বিকাশ/নগদ নম্বর</label>
+            <input type="text" id="phone" placeholder="০১৭XXXXXXXX">
+            
+            <button class="btn-main" onclick="sendRequest()">আবেদন জমা দিন</button>
         </div>
-
-        <div class="withdraw-section">
-            <h4>টাকা উত্তোলন (Withdraw)</h4>
-            <input type="number" id="w-amount" placeholder="পয়েন্টের পরিমাণ">
-            <input type="text" id="w-phone" placeholder="বিকাশ/নগদ নম্বর">
-            <button class="btn-submit" onclick="requestWithdraw()">আবেদন করুন</button>
-        </div>
+        <p style="text-align: center; color: #94a3b8; margin-top: 20px;">পেমেন্ট সাধারণত ২৪ ঘণ্টার মধ্যে করা হয়।</p>
     </div>
 
     <div class="bottom-nav">
-        <span>🏠 হোম</span>
-        <span>📝 টাস্ক</span>
-        <span>💳 উইথড্র</span>
-        <span>⚙️ সেটিংস</span>
+        <div class="nav-item active-nav" onclick="showPage('home', this)">
+            <span class="nav-icon">🏠</span>হোম
+        </div>
+        <div class="nav-item" onclick="showPage('withdraw', this)">
+            <span class="nav-icon">💳</span>উইথড্র
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">⚙️</span>সেটিংস
+        </div>
     </div>
 
     <script>
+        // Firebase Config
         const firebaseConfig = {
           apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M",
           authDomain: "taka-447c5.firebaseapp.com",
@@ -194,26 +197,36 @@
           messagingSenderId: "280823696760",
           appId: "1:280823696760:web:1c4ac09ab62fee0fc28c8d"
         };
-
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        function requestWithdraw() {
-            const amount = document.getElementById('w-amount').value;
-            const phone = document.getElementById('w-phone').value;
-            if(amount && phone) {
+        // Navigation Logic
+        function showPage(pageId, element) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
+            element.classList.add('active-nav');
+        }
+
+        // Withdraw Function
+        function sendRequest() {
+            const points = document.getElementById('points').value;
+            const phone = document.getElementById('phone').value;
+
+            if(points && phone) {
                 db.collection("withdraws").add({
-                    amount: amount,
+                    points: points,
                     phone: phone,
                     status: "Pending",
-                    date: new Date()
+                    time: new Date().toLocaleString()
                 }).then(() => {
-                    alert("আবেদন সফল হয়েছে!");
-                    document.getElementById('w-amount').value = "";
-                    document.getElementById('w-phone').value = "";
+                    alert("আপনার রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
+                    document.getElementById('points').value = "";
+                    document.getElementById('phone').value = "";
                 });
             } else {
-                alert("সব তথ্য দিন!");
+                alert("দয়া করে সব তথ্য পূরণ করুন!");
             }
         }
     </script>
