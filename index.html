@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money Garden Pro | Official</title>
+    <title>Money Garden Pro | Ultra Colourful</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6549982487669310" crossorigin="anonymous"></script>
 
@@ -11,104 +11,207 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
     <style>
-        :root { --primary-bg: #0f172a; --secondary-bg: #1e293b; --accent: #f43f5e; --text-main: #f8fafc; --grad: linear-gradient(135deg, #6366f1, #a855f7); }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 90px; }
-        .page { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root { 
+            --primary-bg: #030712; 
+            --card-bg: rgba(31, 41, 55, 0.7);
+            --accent: #ff0055; 
+            --text-main: #ffffff; 
+            --grad-bg: radial-gradient(circle at top right, #4c1d95, #030712), radial-gradient(circle at bottom left, #831843, #030712);
+            --header-grad: linear-gradient(135deg, #ff00cc 0%, #3333ff 100%);
+        }
         
-        /* Premium Header */
-        .header { background: var(--grad); padding: 45px 20px; text-align: center; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .balance-pill { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 30px; border-radius: 50px; font-size: 1.4rem; font-weight: 800; display: inline-block; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); }
-        
-        /* Modern Cards */
-        .card { background: var(--secondary-bg); padding: 25px; border-radius: 24px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .info-item { display: flex; align-items: center; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; border-left: 4px solid var(--accent); }
-        
-        .notice-board { background: rgba(251, 191, 36, 0.1); color: #fbbf24; padding: 20px; border-radius: 18px; margin-bottom: 20px; font-size: 0.95rem; border: 1px dashed #fbbf24; text-align: left; line-height: 1.6; }
-        
-        .btn-action { background: var(--accent); color: white; border: none; padding: 18px; width: 100%; border-radius: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 14px 0 rgba(244, 63, 94, 0.39); }
-        .btn-action:active { transform: scale(0.97); }
+        body { 
+            margin: 0; 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--grad-bg); 
+            background-attachment: fixed;
+            color: var(--text-main); 
+            padding-bottom: 90px;
+            min-height: 100vh;
+        }
 
-        /* Navigation */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid rgba(255,255,255,0.05); z-index: 100; }
-        .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.8rem; text-decoration: none; transition: 0.3s; }
-        .active-nav { color: var(--accent); font-weight: bold; transform: translateY(-3px); }
+        .page { display: none; padding: 20px; animation: zoomIn 0.3s ease-out; }
+        .active { display: block; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         
-        input, select { width: 100%; padding: 15px; margin-top: 12px; border-radius: 12px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        .header { 
+            background: var(--header-grad); 
+            padding: 50px 20px; 
+            text-align: center; 
+            border-bottom-left-radius: 50px; 
+            border-bottom-right-radius: 50px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .balance-pill { 
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(15px); 
+            padding: 15px 40px; 
+            border-radius: 30px; 
+            font-size: 1.6rem; 
+            font-weight: 900; 
+            display: inline-block; 
+            margin-top: 15px; 
+            border: 2px solid rgba(255,255,255,0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .card { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(10px);
+            padding: 25px; 
+            border-radius: 30px; 
+            margin-top: 20px; 
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .notice-board { 
+            background: linear-gradient(to right, #fff9c4, #ffecb3); 
+            color: #5d4037; 
+            padding: 20px; 
+            border-radius: 20px; 
+            margin-bottom: 20px; 
+            font-size: 0.95rem; 
+            border-left: 8px solid #ffd600; 
+            text-align: left; 
+            font-weight: 600;
+        }
+        
+        .btn-action { 
+            background: linear-gradient(to right, #ff0055, #ff5e00); 
+            color: white; 
+            border: none; 
+            padding: 20px; 
+            width: 100%; 
+            border-radius: 20px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            font-size: 1.2rem; 
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 0, 85, 0.4);
+        }
+        .btn-action:active { transform: scale(0.95); }
+
+        .info-item { 
+            display: flex; 
+            align-items: center; 
+            background: rgba(255,255,255,0.05); 
+            padding: 15px; 
+            border-radius: 15px; 
+            margin-bottom: 12px; 
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .bottom-nav { 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            background: rgba(0, 0, 0, 0.85); 
+            backdrop-filter: blur(20px); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 15px 0; 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+            z-index: 100;
+        }
+
+        .nav-link { 
+            color: #888; 
+            cursor: pointer; 
+            text-align: center; 
+            font-size: 0.8rem; 
+            transition: 0.3s;
+        }
+        .active-nav { color: #ff0055; font-weight: 900; transform: translateY(-5px); }
+        .nav-icon { font-size: 1.5rem; margin-bottom: 4px; }
+
+        input, select { 
+            width: 100%; padding: 16px; margin-top: 12px; border-radius: 15px; 
+            border: 1px solid #444; background: rgba(0,0,0,0.5); color: white; box-sizing: border-box; 
+        }
     </style>
 </head>
 <body>
 
     <div id="home-page" class="page active">
         <div class="header">
-            <h1 style="margin:0; font-size: 1.8rem;">Money Garden Pro 💰</h1>
-            <div class="balance-pill">ব্যালেন্স: <span id="balance">0</span> ৳</div>
+            <h1 style="margin:0; font-size: 2rem; letter-spacing: 1px;">MONEY GARDEN 🌿</h1>
+            <div class="balance-pill">৳ <span id="balance">0</span></div>
         </div>
         
         <div class="card">
             <div class="notice-board">
                 📢 <b>অফার ও কাজের নিয়ম:</b><br>
-                ✅ একাউন্ট বোনাস: <b>১০০ পয়েন্ট</b><br>
-                ✅ রেফার বোনাস: <b>৩০০ পয়েন্ট</b><br>
-                ✅ টাস্ক পেমেন্ট: <b>৫০ পয়েন্ট</b><br>
-                🚫 VPN ছাড়া কাজ করা নিষেধ। ৫০০০ পয়েন্টে ৫০০ টাকা সরাসরি বিকাশ/নগদ।
+                ✨ জয়েনিং বোনাস: <b>১০০ পয়েন্ট</b><br>
+                🔥 রেফার বোনাস: <b>৩০০ পয়েন্ট</b><br>
+                🌍 <b>VPN ব্যবহার করে কাজ করতে হবে ✅</b><br>
+                💰 ৫০০০ পয়েন্টে ৫০০ টাকা বিকাশ/নগদ।
             </div>
             
-            <div class="info-item">🔔 প্রতিদিন ২০টি কাজ সম্পন্ন করুন।</div>
-            <div class="info-item">🛡️ সঠিক তথ্য দিয়ে উইথড্র রিকোয়েস্ট দিন।</div>
+            <div class="info-item">🎯 প্রতিদিনের টাস্ক লিমিট: ২০টি</div>
+            <div class="info-item">⚡ প্রতিটি টাস্কে পাবেন ৫০ পয়েন্ট</div>
 
-            <p id="task-info" style="text-align:center; font-weight:bold; margin-top:20px; font-size:1.1rem;">বাকি কাজ: ২০/২০</p>
-            <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
+            <p id="task-info" style="text-align:center; font-weight:900; color:#ff0055; font-size:1.2rem; margin-top:20px;">বাকি কাজ: ২০/২০</p>
+            <button class="btn-action" id="task-btn" onclick="startTask()">START TASK 🚀</button>
         </div>
     </div>
 
     <div id="refer-page" class="page">
-        <h2 align="center">Refer & Earn 👥</h2>
+        <h2 align="center" style="color:#ff00cc;">REFER & EARN 🎁</h2>
         <div class="card">
-            <p style="text-align:center; opacity:0.8;">আপনার বন্ধুদের ইনভাইট করুন। প্রতিটি সফল রেফারে আপনি পাবেন ৩০০ পয়েন্ট বোনাস!</p>
+            <p align="center">বন্ধুদের ইনভাইট করুন এবং প্রতি রেফারে ৩০০ পয়েন্ট জিতে নিন!</p>
             <input type="text" id="ref-url" readonly>
-            <button class="btn-action" onclick="copyRef()">Invite Friends</button>
+            <button class="btn-action" style="background: linear-gradient(to right, #00d2ff, #3a7bd5);" onclick="copyRef()">COPY LINK 🔗</button>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 align="center">উইথড্র করুন 💳</h2>
+        <h2 align="center" style="color:#00ff88;">WITHDRAW 💵</h2>
         <div class="card">
-            <div class="info-item" style="border-left-color: #4ade80;">মিনিমাম উত্তোলন: ৫০০ টাকা (৫০০০ পয়েন্ট)</div>
+            <p align="center">মিনিমাম উত্তোলন: ৫০০ টাকা (৫০০০ পয়েন্ট)</p>
             <select id="withdraw-method">
                 <option value="bkash">বিকাশ (bKash)</option>
                 <option value="nagad">নগদ (Nagad)</option>
             </select>
-            <input type="number" id="phone" placeholder="নম্বর দিন">
-            <button class="btn-action" onclick="handleWithdraw()">রিকোয়েস্ট পাঠান</button>
+            <input type="number" id="phone" placeholder="Enter Wallet Number">
+            <button class="btn-action" style="background: linear-gradient(to right, #11998e, #38ef7d);" onclick="handleWithdraw()">SUBMIT REQUEST ✅</button>
         </div>
     </div>
 
     <div id="settings-page" class="page">
-        <h2 align="center">My Profile ⚙️</h2>
+        <h2 align="center" style="color:#a855f7;">PROFILE 👤</h2>
         <div class="card">
-            <p style="text-align:center;">User ID: <b id="display-id" style="color:var(--accent);"></b></p>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;">
-                <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:15px; text-align:center;">
-                    <span style="font-size:0.8rem; opacity:0.6;">মোট রেফার</span><br>
-                    <b id="refer-count" style="color:#4ade80;">0</b>
+            <p align="center">MY ID: <b id="display-id" style="color:#ff0055;"></b></p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:20px;">
+                <div style="background:rgba(255,255,255,0.05); padding:20px; border-radius:20px; text-align:center; border:1px solid rgba(0,255,136,0.3);">
+                    <span style="font-size:0.8rem; opacity:0.7;">TOTAL REFER</span><br>
+                    <b id="refer-count" style="color:#00ff88; font-size:1.5rem;">0</b>
                 </div>
-                <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:15px; text-align:center;">
-                    <span style="font-size:0.8rem; opacity:0.6;">রেফার ইনকাম</span><br>
-                    <b id="refer-income" style="color:#60a5fa;">0</b>
+                <div style="background:rgba(255,255,255,0.05); padding:20px; border-radius:20px; text-align:center; border:1px solid rgba(0,136,255,0.3);">
+                    <span style="font-size:0.8rem; opacity:0.7;">REFER INCOME</span><br>
+                    <b id="refer-income" style="color:#0088ff; font-size:1.5rem;">0</b>
                 </div>
             </div>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">Telegram Channel</button>
-            <button class="btn-action" style="background: #334155;" onclick="location.reload()">Refresh App</button>
+            <button class="btn-action" style="background: #0088cc; margin-top:25px;" onclick="window.open('https://t.me/smart_ritaj')">TELEGRAM SUPPORT ✈️</button>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-link active-nav" onclick="showP('home-page', this)">🏠<br>হোম</div>
-        <div class="nav-link" onclick="showP('refer-page', this)">👥<br>রেফার</div>
-        <div class="nav-link" onclick="showP('withdraw-page', this)">💳<br>উইথড্র</div>
-        <div class="nav-link" onclick="showP('settings-page', this)">👤<br>প্রোফাইল</div>
+        <div class="nav-link active-nav" onclick="showP('home-page', this)">
+            <div class="nav-icon">🏠</div>HOME
+        </div>
+        <div class="nav-link" onclick="showP('refer-page', this)">
+            <div class="nav-icon">👥</div>REFER
+        </div>
+        <div class="nav-link" onclick="showP('withdraw-page', this)">
+            <div class="nav-icon">💳</div>CASH
+        </div>
+        <div class="nav-link" onclick="showP('settings-page', this)">
+            <div class="nav-icon">👤</div>USER
+        </div>
     </div>
 
     <script>
@@ -116,8 +219,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_final_v_premium') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_final_v_premium', userId);
+        let userId = localStorage.getItem('mg_ultra_v1') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_ultra_v1', userId);
 
         let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now(), totalRef: 0 };
 
@@ -159,23 +262,23 @@
                 const btn = document.getElementById('task-btn');
                 btn.disabled = true;
                 const timer = setInterval(async () => {
-                    btn.innerText = "অপেক্ষা করুন (" + timeLeft + "s)";
+                    btn.innerText = "WAITING (" + timeLeft + "s)";
                     timeLeft--;
                     if (timeLeft < 0) {
                         clearInterval(timer);
                         userData.balance += 50;
                         userData.tasksLeft--;
                         await db.collection("users").doc(userId).set(userData);
-                        btn.disabled = false; btn.innerText = "কাজ শুরু করুন";
+                        btn.disabled = false; btn.innerText = "START TASK 🚀";
                         updateUI();
-                        alert("সফল! ৫০ পয়েন্ট ব্যালেন্সে যোগ হয়েছে।");
+                        alert("অভিনন্দন! ৫০ পয়েন্ট যোগ হয়েছে।");
                     }
                 }, 1000);
             }
         }
 
-        function handleWithdraw() { alert("রিকোয়েস্ট পাঠানো হয়েছে। অনুগ্রহ করে অপেক্ষা করুন।"); }
-        function copyRef() { const t = document.getElementById("ref-url"); t.select(); navigator.clipboard.writeText(t.value); alert("লিংক কপি হয়েছে!"); }
+        function handleWithdraw() { alert("রিকোয়েস্ট সফল হয়েছে!"); }
+        function copyRef() { const t = document.getElementById("ref-url"); t.select(); navigator.clipboard.writeText(t.value); alert("Link Copied!"); }
         function showP(pId, el) { 
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
             document.getElementById(pId).classList.add('active'); 
