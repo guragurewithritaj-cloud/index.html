@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money Garden Pro</title>
+    <title>Money Garden Pro | Official</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6549982487669310" crossorigin="anonymous"></script>
 
@@ -11,75 +11,96 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
     <style>
-        :root { --primary-bg: #0b0e14; --secondary-bg: #1a1f26; --accent: #f43f5e; --gradient: linear-gradient(135deg, #6366f1, #a855f7); --text-main: #ffffff; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 80px; }
-        .page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
+        :root { --primary-bg: #0f172a; --secondary-bg: #1e293b; --accent: #f43f5e; --text-main: #f8fafc; --grad: linear-gradient(135deg, #6366f1, #a855f7); }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--primary-bg); color: var(--text-main); padding-bottom: 90px; }
+        .page { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
         .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .header { background: var(--gradient); padding: 40px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
-        .balance-pill { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; display: inline-block; margin-top: 10px; }
-        .notice-board { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 0.9rem; border-left: 5px solid #ffeeba; text-align: left; line-height: 1.5; }
-        .card { background: var(--secondary-bg); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; border: 1px solid #2d3748; }
-        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; z-index: 100; }
-        .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.75rem; text-decoration: none; }
-        .active-nav { color: var(--accent); }
-        input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #2d3748; background: #0b0e14; color: white; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Premium Header */
+        .header { background: var(--grad); padding: 45px 20px; text-align: center; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .balance-pill { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 30px; border-radius: 50px; font-size: 1.4rem; font-weight: 800; display: inline-block; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); }
+        
+        /* Modern Cards */
+        .card { background: var(--secondary-bg); padding: 25px; border-radius: 24px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .info-item { display: flex; align-items: center; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; border-left: 4px solid var(--accent); }
+        
+        .notice-board { background: rgba(251, 191, 36, 0.1); color: #fbbf24; padding: 20px; border-radius: 18px; margin-bottom: 20px; font-size: 0.95rem; border: 1px dashed #fbbf24; text-align: left; line-height: 1.6; }
+        
+        .btn-action { background: var(--accent); color: white; border: none; padding: 18px; width: 100%; border-radius: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 14px 0 rgba(244, 63, 94, 0.39); }
+        .btn-action:active { transform: scale(0.97); }
+
+        /* Navigation */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid rgba(255,255,255,0.05); z-index: 100; }
+        .nav-link { color: #94a3b8; cursor: pointer; text-align: center; font-size: 0.8rem; text-decoration: none; transition: 0.3s; }
+        .active-nav { color: var(--accent); font-weight: bold; transform: translateY(-3px); }
+        
+        input, select { width: 100%; padding: 15px; margin-top: 12px; border-radius: 12px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
     <div id="home-page" class="page active">
         <div class="header">
-            <h2>Money Garden 💰</h2>
+            <h1 style="margin:0; font-size: 1.8rem;">Money Garden Pro 💰</h1>
             <div class="balance-pill">ব্যালেন্স: <span id="balance">0</span> ৳</div>
         </div>
+        
         <div class="card">
             <div class="notice-board">
-                📢 <b>অফার নোটিশ:</b><br>
-                ✅ একাউন্ট খুললেই <b>১০০ পয়েন্ট</b> বোনাস!<br>
-                ✅ বন্ধুকে রেফার করলে পাচ্ছেন <b>৩০০ পয়েন্ট</b> বোনাস!<br>
-                ✅ প্রতিটি কাজের জন্য ৫০ পয়েন্ট। ৫০০০ পয়েন্টে ৫০০ টাকা সরাসরি বিকাশ বা নগদে পেমেন্ট।
+                📢 <b>অফার ও কাজের নিয়ম:</b><br>
+                ✅ একাউন্ট বোনাস: <b>১০০ পয়েন্ট</b><br>
+                ✅ রেফার বোনাস: <b>৩০০ পয়েন্ট</b><br>
+                ✅ টাস্ক পেমেন্ট: <b>৫০ পয়েন্ট</b><br>
+                🚫 VPN ছাড়া কাজ করা নিষেধ। ৫০০০ পয়েন্টে ৫০০ টাকা সরাসরি বিকাশ/নগদ।
             </div>
-            <p id="task-info">বাকি কাজ: ২০/২০</p>
+            
+            <div class="info-item">🔔 প্রতিদিন ২০টি কাজ সম্পন্ন করুন।</div>
+            <div class="info-item">🛡️ সঠিক তথ্য দিয়ে উইথড্র রিকোয়েস্ট দিন।</div>
+
+            <p id="task-info" style="text-align:center; font-weight:bold; margin-top:20px; font-size:1.1rem;">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন</button>
         </div>
     </div>
 
     <div id="refer-page" class="page">
-        <h2 align="center">রেফার বোনাস ৩০০</h2>
+        <h2 align="center">Refer & Earn 👥</h2>
         <div class="card">
-            <p>আপনার রেফার লিংক কপি করে শেয়ার করুন এবং ৩০০ পয়েন্ট বোনাস নিন!</p>
+            <p style="text-align:center; opacity:0.8;">আপনার বন্ধুদের ইনভাইট করুন। প্রতিটি সফল রেফারে আপনি পাবেন ৩০০ পয়েন্ট বোনাস!</p>
             <input type="text" id="ref-url" readonly>
-            <button class="btn-action" onclick="copyRef()">লিংক কপি করুন</button>
+            <button class="btn-action" onclick="copyRef()">Invite Friends</button>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
-        <h2 align="center">টাকা উত্তোলন</h2>
+        <h2 align="center">উইথড্র করুন 💳</h2>
         <div class="card">
-            <p>মিনিমাম ৫০০০ পয়েন্ট (৫০০ টাকা)</p>
+            <div class="info-item" style="border-left-color: #4ade80;">মিনিমাম উত্তোলন: ৫০০ টাকা (৫০০০ পয়েন্ট)</div>
             <select id="withdraw-method">
                 <option value="bkash">বিকাশ (bKash)</option>
                 <option value="nagad">নগদ (Nagad)</option>
             </select>
-            <input type="number" id="phone" placeholder="বিকাশ/নগদ নম্বর দিন">
-            <button class="btn-action" onclick="handleWithdraw()">উইথড্র রিকোয়েস্ট</button>
+            <input type="number" id="phone" placeholder="নম্বর দিন">
+            <button class="btn-action" onclick="handleWithdraw()">রিকোয়েস্ট পাঠান</button>
         </div>
     </div>
 
     <div id="settings-page" class="page">
-        <h2 align="center">প্রোফাইল সেটিংস</h2>
+        <h2 align="center">My Profile ⚙️</h2>
         <div class="card">
-            <p>আপনার ID: <span id="display-id"></span></p>
-            <hr style="border: 0.5px solid #2d3748; margin: 15px 0;">
-            <div style="text-align: left; padding: 0 10px;">
-                <p style="color: #4ade80; font-weight: bold; margin: 5px 0;">👥 মোট রেফার: <span id="refer-count">0</span> জন</p>
-                <p style="color: #60a5fa; font-weight: bold; margin: 5px 0;">💰 রেফার ইনকাম: <span id="refer-income">0</span> পয়েন্ট</p>
+            <p style="text-align:center;">User ID: <b id="display-id" style="color:var(--accent);"></b></p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;">
+                <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:15px; text-align:center;">
+                    <span style="font-size:0.8rem; opacity:0.6;">মোট রেফার</span><br>
+                    <b id="refer-count" style="color:#4ade80;">0</b>
+                </div>
+                <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:15px; text-align:center;">
+                    <span style="font-size:0.8rem; opacity:0.6;">রেফার ইনকাম</span><br>
+                    <b id="refer-income" style="color:#60a5fa;">0</b>
+                </div>
             </div>
-            <hr style="border: 0.5px solid #2d3748; margin: 15px 0;">
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">টেলিগ্রাম সাপোর্ট</button>
-            <button class="btn-action" style="background: #4b5563;" onclick="location.reload()">অ্যাপ রিফ্রেশ</button>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">Telegram Channel</button>
+            <button class="btn-action" style="background: #334155;" onclick="location.reload()">Refresh App</button>
         </div>
     </div>
 
@@ -87,7 +108,7 @@
         <div class="nav-link active-nav" onclick="showP('home-page', this)">🏠<br>হোম</div>
         <div class="nav-link" onclick="showP('refer-page', this)">👥<br>রেফার</div>
         <div class="nav-link" onclick="showP('withdraw-page', this)">💳<br>উইথড্র</div>
-        <div class="nav-link" onclick="showP('settings-page', this)">⚙️<br>সেটিংস</div>
+        <div class="nav-link" onclick="showP('settings-page', this)">👤<br>প্রোফাইল</div>
     </div>
 
     <script>
@@ -95,10 +116,10 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_final_v15') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_final_v15', userId);
+        let userId = localStorage.getItem('mg_final_v_premium') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_final_v_premium', userId);
 
-        let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now(), totalRef: 0, refStatus: false };
+        let userData = { balance: 100, tasksLeft: 20, lastReset: Date.now(), totalRef: 0 };
 
         async function loadData() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -115,7 +136,6 @@
                         rd.balance += 300; 
                         rd.totalRef = (rd.totalRef || 0) + 1;
                         await db.collection("users").doc(referrer).set(rd);
-                        userData.refStatus = true;
                     }
                 }
                 await db.collection("users").doc(userId).set(userData);
@@ -127,9 +147,8 @@
             document.getElementById('balance').innerText = userData.balance;
             document.getElementById('task-info').innerText = "বাকি কাজ: " + userData.tasksLeft + "/২০";
             document.getElementById('display-id').innerText = userId;
-            let refCount = userData.totalRef || 0;
-            document.getElementById('refer-count').innerText = refCount;
-            document.getElementById('refer-income').innerText = refCount * 300;
+            document.getElementById('refer-count').innerText = userData.totalRef || 0;
+            document.getElementById('refer-income').innerText = (userData.totalRef || 0) * 300;
             document.getElementById('ref-url').value = window.location.origin + window.location.pathname + "?ref=" + userId;
         }
 
@@ -149,15 +168,20 @@
                         await db.collection("users").doc(userId).set(userData);
                         btn.disabled = false; btn.innerText = "কাজ শুরু করুন";
                         updateUI();
-                        alert("অভিনন্দন! ৫০ পয়েন্ট যোগ হয়েছে।");
+                        alert("সফল! ৫০ পয়েন্ট ব্যালেন্সে যোগ হয়েছে।");
                     }
                 }, 1000);
             }
         }
 
-        function handleWithdraw() { alert("উইথড্র রিকোয়েস্ট সফল হয়েছে!"); }
+        function handleWithdraw() { alert("রিকোয়েস্ট পাঠানো হয়েছে। অনুগ্রহ করে অপেক্ষা করুন।"); }
         function copyRef() { const t = document.getElementById("ref-url"); t.select(); navigator.clipboard.writeText(t.value); alert("লিংক কপি হয়েছে!"); }
-        function showP(pId, el) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(pId).classList.add('active'); document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav')); el.classList.add('active-nav'); }
+        function showP(pId, el) { 
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
+            document.getElementById(pId).classList.add('active'); 
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav')); 
+            el.classList.add('active-nav'); 
+        }
         
         loadData();
     </script>
