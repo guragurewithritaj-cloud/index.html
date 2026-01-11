@@ -102,7 +102,7 @@
             z-index: 100;
         }
 
-        .nav-link { color: #888; cursor: pointer; text-align: center; font-size: 0.8rem; }
+        .nav-link { color: #888; cursor: pointer; text-align: center; font-size: 0.8rem; text-decoration: none; }
         .active-nav { color: #ff0055; font-weight: 900; }
         .nav-icon { font-size: 1.5rem; }
 
@@ -128,10 +128,11 @@
         <div class="card">
             <div class="notice-board">
                 📢 <b>অফার ও কাজের নিয়ম:</b><br>
-                ✨ অ্যাকাউন্ট বোনাস: ১০০ পয়েন্ট<br>
-                🔥 রেফার বোনাস: ৩০০ পয়েন্ট<br>
-                💎 প্রতিটি কাজের জন্য ৫০ পয়েন্ট।<br>
-                🛡️ প্রতিদিন সঠিক নিয়ম মেনে ২০টি কাজ সম্পন্ন করুন।
+                ✅ অ্যাকাউন্ট খুললেই ১০০ পয়েন্ট বোনাস!<br>
+                ✅ বন্ধুকে রেফার করলে পাচ্ছেন ৩০০ পয়েন্ট বোনাস!<br>
+                ✅ প্রতিটি কাজের জন্য ৫০ পয়েন্ট।<br>
+                💰 ১০০০০ পয়েন্টে ৫০০ টাকা সরাসরি বিকাশ বা নগদে পেমেন্ট।<br>
+                🔔 প্রতিদিন ২০টি কাজ সম্পন্ন করুন।
             </div>
             <p id="task-info" style="text-align:center; font-weight:900;">বাকি কাজ: ২০/২০</p>
             <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন 🚀</button>
@@ -139,28 +140,28 @@
     </div>
 
     <div id="refer-page" class="page">
-        <h2 align="center" style="color:#ff00cc;">রেফার করুন এবং আয় করুন 🎁</h2>
+        <h2 align="center" style="color:#ff00cc;">REFER & EARN 🎁</h2>
         <div class="card">
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
                 <div class="stat-box">
-                    <span style="font-size:0.7rem; opacity:0.7;">মোট রেফার</span><br>
+                    <span style="font-size:0.7rem; opacity:0.7;">TOTAL REFER</span><br>
                     <b id="refer-count" style="color:#00ff88; font-size:1.2rem;">0</b>
                 </div>
                 <div class="stat-box">
-                    <span style="font-size:0.7rem; opacity:0.7;">রেফার ইনকাম</span><br>
+                    <span style="font-size:0.7rem; opacity:0.7;">REFER INCOME</span><br>
                     <b id="refer-income" style="color:#0088ff; font-size:1.2rem;">0</b>
                 </div>
             </div>
-            <p align="center">আপনার বন্ধুদের আমন্ত্রণ জানান এবং প্রতিটি সফল রেফারে ৩০০ পয়েন্ট বোনাস জিতুন!</p>
+            <p align="center">বন্ধুদের ইনভাইট করুন এবং প্রতি রেফারে ৩০০ পয়েন্ট জিতে নিন!</p>
             <input type="text" id="ref-url" readonly>
-            <button class="btn-action" style="background: linear-gradient(to right, #00d2ff, #3a7bd5);" onclick="copyRef()">লিংক কপি করুন 🔗</button>
+            <button class="btn-action" style="background: linear-gradient(to right, #00d2ff, #3a7bd5);" onclick="copyRef()">COPY LINK 🔗</button>
         </div>
     </div>
 
     <div id="withdraw-page" class="page">
         <h2 align="center" style="color:#00ff88;">টাকা উত্তোলন 💵</h2>
         <div class="card">
-            <p align="center">৫০০০ পয়েন্ট হলেই ৫০০ টাকা বিকাশ বা নগদে পেমেন্ট।</p>
+            <p align="center" style="color:#fbbf24; font-weight:bold;">১০০০০ পয়েন্ট হলেই ৫০০ টাকা বিকাশ বা নগদে পেমেন্ট।</p>
             <select id="withdraw-method">
                 <option value="bkash">বিকাশ (bKash)</option>
                 <option value="nagad">নগদ (Nagad)</option>
@@ -171,16 +172,16 @@
     </div>
 
     <div id="settings-page" class="page">
-        <h2 align="center" style="color:#a855f7;">ব্যবহারকারীর তথ্য 👤</h2>
+        <h2 align="center" style="color:#a855f7;">PROFILE 👤</h2>
         <div class="card">
-            <p align="center">আমার আইডি: <b id="display-id" style="color:#ff0055;"></b></p>
+            <p align="center">MY ID: <b id="display-id" style="color:#ff0055;"></b></p>
             <div class="notice-board" style="background: rgba(168, 85, 247, 0.1); border-left-color: #a855f7; color: #fff;">
                 🌟 <b>কেন মানি গার্ডেন সেরা?</b><br>
-                ✅ আমরা সবার আগে পেমেন্ট নিশ্চিত করি।<br>
+                ✅ আমরা দ্রুত পেমেন্ট নিশ্চিত করি।<br>
                 ✅ রেফার করে আনলিমিটেড আয়ের সুযোগ।<br>
-                ✅ যেকোনো সমস্যায় ২৪/৭ টেলিগ্রাম সাপোর্ট।
+                ✅ ২৪/৭ টেলিগ্রাম সাপোর্ট সিস্টেম।
             </div>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">টেলিগ্রাম সাপোর্ট ✈️</button>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">TELEGRAM SUPPORT ✈️</button>
         </div>
     </div>
 
@@ -196,8 +197,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_ultra_v3') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_ultra_v3', userId);
+        let userId = localStorage.getItem('mg_ultra_v5') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_ultra_v5', userId);
 
         let userData = { balance: 100, tasksLeft: 20, totalRef: 0 };
 
@@ -247,7 +248,13 @@
             }
         }
 
-        function handleWithdraw() { alert("আবেদন জমা হয়েছে!"); }
+        function handleWithdraw() { 
+            if(userData.balance < 10000) {
+                alert("উইথড্র করার জন্য নূন্যতম ১০০০০ পয়েন্ট প্রয়োজন!");
+            } else {
+                alert("আবেদন জমা হয়েছে! খুব শীঘ্রই পেমেন্ট পেয়ে যাবেন।"); 
+            }
+        }
         function copyRef() { const t = document.getElementById("ref-url"); t.select(); navigator.clipboard.writeText(t.value); alert("লিংক কপি হয়েছে!"); }
         function showP(pId, el) { 
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
