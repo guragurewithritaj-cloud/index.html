@@ -89,7 +89,6 @@
             box-shadow: 0 5px 20px rgba(255, 0, 85, 0.4);
         }
 
-        /* অ্যাড এবং স্পেশাল লিঙ্ক কন্টেইনার */
         .ad-container {
             position: fixed;
             bottom: 80px;
@@ -174,21 +173,21 @@
     </div>
 
     <div id="refer-page" class="page">
-        <h2 align="center" style="color:#ff00cc;">REFER & EARN 🎁</h2>
+        <h2 align="center" style="color:#ff00cc;">রেফার ও ইনকাম 🎁</h2>
         <div class="card">
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
                 <div class="stat-box">
-                    <span style="font-size:0.7rem; opacity:0.7;">TOTAL REFER</span><br>
+                    <span style="font-size:0.7rem; opacity:0.7;">মোট রেফার</span><br>
                     <b id="refer-count" style="color:#00ff88; font-size:1.2rem;">0</b>
                 </div>
                 <div class="stat-box">
-                    <span style="font-size:0.7rem; opacity:0.7;">REFER INCOME</span><br>
+                    <span style="font-size:0.7rem; opacity:0.7;">রেফার ইনকাম</span><br>
                     <b id="refer-income" style="color:#0088ff; font-size:1.2rem;">0</b>
                 </div>
             </div>
             <p align="center">বন্ধুদের ইনভাইট করুন এবং প্রতি রেফারে ৩০০ পয়েন্ট জিতে নিন!</p>
             <input type="text" id="ref-url" readonly>
-            <button class="btn-action" style="background: linear-gradient(to right, #00d2ff, #3a7bd5);" onclick="copyRef()">COPY LINK 🔗</button>
+            <button class="btn-action" style="background: linear-gradient(to right, #00d2ff, #3a7bd5);" onclick="copyRef()">লিংক কপি করুন 🔗</button>
         </div>
     </div>
 
@@ -206,16 +205,16 @@
     </div>
 
     <div id="settings-page" class="page">
-        <h2 align="center" style="color:#a855f7;">PROFILE 👤</h2>
+        <h2 align="center" style="color:#a855f7;">প্রোফাইল 👤</h2>
         <div class="card">
-            <p align="center">MY ID: <b id="display-id" style="color:#ff0055;"></b></p>
+            <p align="center">আমার আইডি: <b id="display-id" style="color:#ff0055;"></b></p>
             <div class="notice-board" style="background: rgba(168, 85, 247, 0.1); border-left-color: #a855f7; color: #fff;">
                 🌟 <b>কেন মানি গার্ডেন সেরা?</b><br>
                 ✅ আমরা দ্রুত পেমেন্ট নিশ্চিত করি।<br>
                 ✅ রেফার করে আনলিমিটেড আয়ের সুযোগ।<br>
                 ✅ ২৪/৭ টেলিগ্রাম সাপোর্ট সিস্টেম।
             </div>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">TELEGRAM SUPPORT ✈️</button>
+            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">টেলিগ্রাম সাপোর্ট ✈️</button>
         </div>
     </div>
 
@@ -225,7 +224,13 @@
         </a>
 
         <script>
-            atOptions = { 'key' : '050aff6ddb6b294a98f5f0a5c1bf1c91', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
+          atOptions = {
+            'key' : '050aff6ddb6b294a98f5f0a5c1bf1c91',
+            'format' : 'iframe',
+            'height' : 300,
+            'width' : 160,
+            'params' : {}
+          };
         </script>
         <script src="https://www.highperformanceformat.com/050aff6ddb6b294a98f5f0a5c1bf1c91/invoke.js"></script>
     </div>
@@ -242,8 +247,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let userId = localStorage.getItem('mg_ultra_v_final') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_ultra_v_final', userId);
+        let userId = localStorage.getItem('mg_ultra_v_ads_final') || "MG" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('mg_ultra_v_ads_final', userId);
 
         let userData = { balance: 100, tasksLeft: 20, totalRef: 0 };
 
