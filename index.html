@@ -26,7 +26,7 @@
             background: var(--grad-bg); 
             background-attachment: fixed;
             color: var(--text-main); 
-            padding-bottom: 380px; /* নতুন বড় অ্যাডের জন্য নিচের গ্যাপ বাড়ানো হয়েছে */
+            padding-bottom: 380px; 
             min-height: 100vh;
         }
 
@@ -89,7 +89,7 @@
             box-shadow: 0 5px 20px rgba(255, 0, 85, 0.4);
         }
 
-        /* অ্যাড কন্টেইনার স্টাইল */
+        /* অ্যাড এবং স্পেশাল লিঙ্ক কন্টেইনার */
         .ad-container {
             position: fixed;
             bottom: 80px;
@@ -103,8 +103,24 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            overflow-y: auto;
-            max-height: 350px;
+        }
+
+        .direct-link-btn {
+            background: linear-gradient(to right, #00ff88, #00bdff);
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .bottom-nav { 
@@ -204,10 +220,9 @@
     </div>
 
     <div class="ad-container">
-        <script>
-            atOptions = { 'key' : '77860489eff810b8bc8511f5ff709084', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
-        </script>
-        <script src="https://www.highperformanceformat.com/77860489eff810b8bc8511f5ff709084/invoke.js"></script>
+        <a href="https://www.effectivegatecpm.com/z08048qzju?key=72819e212da814ab3ea7a6471cd06902" target="_blank" class="direct-link-btn">
+            🔥 স্পেশাল বোনাস পেতে ক্লিক করুন! 🔥
+        </a>
 
         <script>
             atOptions = { 'key' : '050aff6ddb6b294a98f5f0a5c1bf1c91', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
