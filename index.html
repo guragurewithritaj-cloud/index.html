@@ -5,34 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FF BÇ BŃ TØÜRŃÆMĒÑT</title>
     <style>
-        :root { --primary: #FF3D00; --bg: #121212; --card: #1E1E1E; --bkash: #D12053; --nagad: #F47321; --accent: #00E676; --pending: #FFC107; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; overflow-x: hidden; }
+        :root { --primary: #FF3D00; --bg: #0a0a0a; --glass: rgba(255, 255, 255, 0.05); --border: rgba(255, 255, 255, 0.1); --accent: #00E676; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; margin: 0; padding-bottom: 50px; }
         
-        .navbar { background: var(--card); padding: 15px; text-align: center; border-bottom: 2px solid var(--primary); }
-        .app-name { font-size: 20px; font-weight: bold; color: var(--primary); }
+        /* Glassmorphism UI */
+        .glass-card { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 20px; margin: 15px; padding: 20px; }
+        
+        .navbar { background: rgba(0,0,0,0.8); padding: 15px; text-align: center; border-bottom: 2px solid var(--primary); sticky; top:0; z-index: 100; }
+        .app-name { font-size: 18px; font-weight: bold; color: var(--primary); text-transform: uppercase; }
 
-        .wallet-card { background: linear-gradient(135deg, #1e1e1e, #000000); margin: 15px; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid #333; }
-        .balance-text { font-size: 30px; color: var(--accent); font-weight: bold; }
+        .balance-box { text-align: center; padding: 10px; }
+        .balance-amount { font-size: 32px; color: var(--accent); font-weight: bold; text-shadow: 0 0 10px rgba(0, 230, 118, 0.3); }
 
-        /* Tab Navigation */
-        .tab-bar { display: flex; justify-content: space-around; background: var(--card); margin: 10px 15px; padding: 10px; border-radius: 12px; overflow-x: auto; }
-        .tab-btn { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; padding: 8px 12px; white-space: nowrap; font-size: 12px; }
+        /* Notice Board */
+        .notice-board { background: rgba(255, 61, 0, 0.1); border-left: 4px solid var(--primary); padding: 10px; margin: 15px; font-size: 12px; border-radius: 5px; }
+
+        .tab-bar { display: flex; justify-content: space-around; background: #151515; margin: 0 15px; border-radius: 12px; overflow-x: auto; }
+        .tab-btn { background: none; border: none; color: #888; padding: 12px; font-size: 11px; font-weight: bold; cursor: pointer; white-space: nowrap; }
         .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
-        .section { display: none; padding: 15px; animation: fadeIn 0.4s; }
+        .section { display: none; padding: 10px; animation: fadeIn 0.3s; }
         .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card { background: var(--card); padding: 18px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #2a2a2a; }
-        .btn { border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 12px; color: white; text-transform: uppercase; }
-        
-        input, select { width: 92%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #444; background: #252525; color: white; }
-        
-        /* History Table Style */
-        .history-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #333; font-size: 13px; }
-        .status-pending { color: var(--pending); font-weight: bold; }
-        .status-complete { color: var(--accent); font-weight: bold; }
-        .badge { background: var(--primary); font-size: 11px; padding: 3px 8px; border-radius: 5px; }
+        .match-card { background: var(--glass); border-radius: 15px; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); }
+        .btn { background: var(--primary); border: none; padding: 12px; border-radius: 8px; color: white; font-weight: bold; width: 100%; cursor: pointer; margin-top: 10px; }
+
+        /* Leaderboard Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+        th { color: var(--primary); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -41,9 +44,13 @@
         <div class="app-name">🏆 FF BÇ BŃ TØÜRŃÆMĒÑT</div>
     </div>
 
-    <div class="wallet-card">
-        <div style="color: #bbb; margin-bottom: 5px;">Current Balance</div>
-        <div class="balance-text">৳ <span id="balance">500.00</span></div>
+    <div class="notice-board">
+        <b>📢 NOTICE:</b> হ্যাকার ধরা পড়লে আইডি পার্মানেন্ট ব্যান হবে। পেমেন্ট নিয়ে সমস্যা হলে সাপোর্ট এ কথা বলুন।
+    </div>
+
+    <div class="glass-card balance-box">
+        <div style="color: #aaa; font-size: 14px;">Current Balance</div>
+        <div class="balance-amount">৳ <span id="balance">0.00</span></div>
     </div>
 
     <div class="tab-bar">
@@ -51,56 +58,78 @@
         <button class="tab-btn" onclick="showTab('deposit', this)">DEPOSIT</button>
         <button class="tab-btn" onclick="showTab('withdraw', this)">WITHDRAW</button>
         <button class="tab-btn" onclick="showTab('history', this)">HISTORY</button>
+        <button class="tab-btn" onclick="showTab('leaderboard', this)">LEADERBOARD</button>
     </div>
 
     <div id="matches" class="section active">
-        <div class="card">
-            <div style="display:flex; justify-content:space-between;">
-                <b>PRO SOLO BATTLE</b>
-                <span class="badge">E-Sports</span>
-            </div>
-            <p style="font-size: 13px; color: #bbb;">Entry: ৳50 | Winner: ৳200 | Per Kill: ৳10</p>
-            <button class="btn" style="background: var(--primary);" onclick="joinMatch(50)">JOIN MATCH</button>
+        <div class="match-card">
+            <div style="display:flex; justify-content:space-between;"><b>SOLO BATTLE</b> <span style="color:var(--primary); font-size:12px;">BERMUDA</span></div>
+            <p style="font-size:12px; color:#bbb;">Entry: ৳50 | Win: ৳200 | Per Kill: ৳10</p>
+            <button class="btn" onclick="joinMatch(50)">JOIN MATCH</button>
+        </div>
+        <div class="match-card">
+            <div style="display:flex; justify-content:space-between;"><b>DUO SPECIAL</b> <span style="color:#3498db; font-size:12px;">PURGATORY</span></div>
+            <p style="font-size:12px; color:#bbb;">Entry: ৳100 | Win: ৳400 | Per Kill: ৳20</p>
+            <button class="btn" onclick="joinMatch(100)">JOIN MATCH</button>
+        </div>
+        <div class="match-card">
+            <div style="display:flex; justify-content:space-between;"><b>SQUAD WAR</b> <span style="color:#f1c40f; font-size:12px;">KALAHARI</span></div>
+            <p style="font-size:12px; color:#bbb;">Entry: ৳200 | Win: ৳1000 | Per Kill: ৳40</p>
+            <button class="btn" onclick="joinMatch(200)">JOIN MATCH</button>
         </div>
     </div>
 
     <div id="deposit" class="section">
-        <div class="card">
+        <div class="glass-card">
             <h3>💳 Add Money</h3>
-            <p style="font-size:13px; color:#aaa;">Send Money to: <b style="color:white;">01972745315</b></p>
-            <div style="display:flex; gap:10px;">
-                <button class="btn" style="background: var(--bkash);" onclick="openForm('bKash')">BKASH</button>
-                <button class="btn" style="background: var(--nagad);" onclick="openForm('Nagad')">NAGAD</button>
-            </div>
-            <div id="dep-fields" style="display:none; margin-top:15px;">
-                <input type="number" id="d-amount" placeholder="Amount">
-                <input type="text" id="d-trx" placeholder="Transaction ID">
-                <button class="btn" style="background: var(--accent);" onclick="addHistory('Deposit')">SUBMIT DEPOSIT</button>
+            <p style="font-size:13px;">Send Money to: <b>01972745315</b></p>
+            <button class="btn" style="background:#e2136e;" onclick="openDep()">BKASH / NAGAD</button>
+            <div id="dep-form" style="display:none; margin-top:10px;">
+                <input type="number" id="d-amt" style="width:90%; padding:10px; margin:5px 0;" placeholder="Amount">
+                <input type="text" id="d-trx" style="width:90%; padding:10px; margin:5px 0;" placeholder="Transaction ID">
+                <button class="btn" onclick="submitRequest('Deposit')">SUBMIT</button>
             </div>
         </div>
     </div>
 
     <div id="withdraw" class="section">
-        <div class="card">
+        <div class="glass-card">
             <h3>💸 Withdrawal</h3>
-            <input type="text" id="w-num" placeholder="Account Number">
-            <input type="number" id="w-amount" placeholder="Min ৳100">
-            <button class="btn" style="background: #3498db;" onclick="addHistory('Withdraw')">REQUEST WITHDRAW</button>
+            <input type="number" id="w-amt" style="width:90%; padding:10px; margin:5px 0;" placeholder="Min 100">
+            <button class="btn" onclick="submitRequest('Withdraw')">REQUEST CASH OUT</button>
         </div>
     </div>
 
     <div id="history" class="section">
-        <div class="card">
-            <h3 style="margin-top:0;">📜 Transaction History</h3>
-            <div id="history-list">
-                <p style="text-align:center; color:#666;">No history found.</p>
-            </div>
+        <div class="glass-card">
+            <h3>📜 Activity History</h3>
+            <div id="h-list" style="font-size:13px; color:#ccc;">No data.</div>
+        </div>
+    </div>
+
+    <div id="leaderboard" class="section">
+        <div class="glass-card">
+            <h3>🏆 Top Players</h3>
+            <table>
+                <tr><th>Rank</th><th>Name</th><th>Earnings</th></tr>
+                <tr><td>1</td><td>Sabbir YT</td><td>৳ 5,400</td></tr>
+                <tr><td>2</td><td>FF Lover</td><td>৳ 3,200</td></tr>
+                <tr><td>3</td><td>Gamer_Boy</td><td>৳ 2,100</td></tr>
+            </table>
         </div>
     </div>
 
     <script>
-        let balance = 500;
-        let historyData = [];
+        // Balance Management (Local Storage saves balance even after refresh)
+        let balance = parseFloat(localStorage.getItem('userBalance')) || 0.00;
+        let history = JSON.parse(localStorage.getItem('userHistory')) || [];
+
+        function updateUI() {
+            document.getElementById('balance').innerText = balance.toFixed(2);
+            localStorage.setItem('userBalance', balance);
+            localStorage.setItem('userHistory', JSON.stringify(history));
+            renderHistory();
+        }
 
         function showTab(id, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -109,58 +138,44 @@
             btn.classList.add('active');
         }
 
-        function openForm(m) {
-            document.getElementById('dep-fields').style.display = 'block';
-            alert("Send money to 01972745315 via " + m);
-        }
+        function openDep() { document.getElementById('dep-form').style.display = 'block'; }
 
-        function addHistory(type) {
-            let amt = type === 'Deposit' ? document.getElementById('d-amount').value : document.getElementById('w-amount').value;
-            if(!amt || amt < 10) { alert("Invalid Amount!"); return; }
+        function submitRequest(type) {
+            let amt = (type === 'Deposit') ? document.getElementById('d-amt').value : document.getElementById('w-amt').value;
+            if(!amt || amt < 10) return alert("Valid amount please!");
 
-            let newItem = {
-                type: type,
-                amount: amt,
-                status: 'Pending',
-                date: new Date().toLocaleTimeString()
-            };
+            if(type === 'Withdraw' && amt > balance) return alert("Insufficient balance!");
+
+            let log = { type: type, amount: amt, status: 'Pending', time: new Date().toLocaleTimeString() };
+            history.unshift(log);
             
-            historyData.unshift(newItem);
-            renderHistory();
-            alert(type + " Request Submitted! Check History for Status.");
+            if(type === 'Withdraw') { balance -= parseFloat(amt); }
             
-            // Clear inputs
-            document.getElementById('d-amount').value = '';
-            document.getElementById('d-trx').value = '';
-            document.getElementById('w-amount').value = '';
+            updateUI();
+            alert(type + " request sent! Status: Pending");
         }
 
         function renderHistory() {
-            let list = document.getElementById('history-list');
-            list.innerHTML = '';
-            historyData.forEach(item => {
-                list.innerHTML += `
-                    <div class="history-item">
-                        <div>
-                            <b>${item.type}</b> <br>
-                            <small style="color:#888;">${item.date}</small>
-                        </div>
-                        <div style="text-align:right;">
-                            <b>৳${item.amount}</b> <br>
-                            <span class="${item.status === 'Pending' ? 'status-pending' : 'status-complete'}">${item.status}</span>
-                        </div>
-                    </div>
-                `;
+            let list = document.getElementById('h-list');
+            list.innerHTML = history.length ? '' : 'No history.';
+            history.forEach(item => {
+                list.innerHTML += `<div style="padding:10px; border-bottom:1px solid #333; display:flex; justify-content:space-between;">
+                    <span>${item.type} (৳${item.amount})</span>
+                    <span style="color:orange;">${item.status}</span>
+                </div>`;
             });
         }
 
         function joinMatch(fee) {
             if(balance >= fee) {
                 balance -= fee;
-                document.getElementById('balance').innerText = balance.toFixed(2);
-                alert("Joined Match! Check profile for Room ID.");
-            } else { alert("Low Balance!"); }
+                updateUI();
+                alert("Joined Successfully! Check Room ID 15 mins before match.");
+            } else { alert("Please add money first!"); }
         }
+
+        // Initial Load
+        updateUI();
     </script>
 </body>
 </html>
