@@ -5,35 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FF BÇ BŃ TØÜRŃÆMĒÑT</title>
     <style>
-        :root { --primary: #FF3D00; --bg: #0a0a0a; --glass: rgba(255, 255, 255, 0.05); --border: rgba(255, 255, 255, 0.1); --accent: #00E676; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; margin: 0; padding-bottom: 50px; }
+        :root { --primary: #FF3D00; --bg: #0a0a0a; --glass: rgba(255, 255, 255, 0.05); --border: rgba(255, 255, 255, 0.1); --accent: #00E676; --bkash: #e2136e; --nagad: #f15922; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; margin: 0; padding-bottom: 20px; }
         
-        /* Glassmorphism UI */
-        .glass-card { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 20px; margin: 15px; padding: 20px; }
-        
-        .navbar { background: rgba(0,0,0,0.8); padding: 15px; text-align: center; border-bottom: 2px solid var(--primary); sticky; top:0; z-index: 100; }
+        .navbar { background: rgba(0,0,0,0.9); padding: 15px; text-align: center; border-bottom: 2px solid var(--primary); sticky; top:0; z-index: 1000; }
         .app-name { font-size: 18px; font-weight: bold; color: var(--primary); text-transform: uppercase; }
 
-        .balance-box { text-align: center; padding: 10px; }
-        .balance-amount { font-size: 32px; color: var(--accent); font-weight: bold; text-shadow: 0 0 10px rgba(0, 230, 118, 0.3); }
+        .notice-board { background: rgba(255, 61, 0, 0.1); border-left: 4px solid var(--primary); padding: 12px; margin: 15px; font-size: 12px; border-radius: 8px; line-height: 1.5; }
 
-        /* Notice Board */
-        .notice-board { background: rgba(255, 61, 0, 0.1); border-left: 4px solid var(--primary); padding: 10px; margin: 15px; font-size: 12px; border-radius: 5px; }
+        .glass-card { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 20px; margin: 15px; padding: 20px; }
+        .balance-amount { font-size: 32px; color: var(--accent); font-weight: bold; text-align: center; }
 
+        /* Navigation Tabs */
         .tab-bar { display: flex; justify-content: space-around; background: #151515; margin: 0 15px; border-radius: 12px; overflow-x: auto; }
-        .tab-btn { background: none; border: none; color: #888; padding: 12px; font-size: 11px; font-weight: bold; cursor: pointer; white-space: nowrap; }
+        .tab-btn { background: none; border: none; color: #888; padding: 15px; font-size: 11px; font-weight: bold; cursor: pointer; white-space: nowrap; text-transform: uppercase; }
         .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
         .section { display: none; padding: 10px; animation: fadeIn 0.3s; }
         .section.active { display: block; }
 
-        .match-card { background: var(--glass); border-radius: 15px; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); }
-        .btn { background: var(--primary); border: none; padding: 12px; border-radius: 8px; color: white; font-weight: bold; width: 100%; cursor: pointer; margin-top: 10px; }
+        /* Sub-Tabs for Solo/Duo/Squad */
+        .sub-tab-bar { display: flex; justify-content: center; gap: 10px; margin: 10px 0; }
+        .sub-btn { background: var(--glass); border: 1px solid var(--border); color: #ccc; padding: 8px 20px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+        .sub-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* Leaderboard Table */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
-        th { color: var(--primary); }
+        /* Match Card - Styled from Image */
+        .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 5px; }
+        .match-card { background: var(--glass); border-radius: 15px; padding: 12px; border: 1px solid var(--border); position: relative; }
+        .map-tag { position: absolute; top: 10px; right: 10px; font-size: 10px; color: var(--primary); font-weight: bold; }
+        .match-title { font-size: 13px; font-weight: bold; margin-bottom: 5px; display: block; }
+        .match-info { font-size: 10px; color: #aaa; margin: 2px 0; }
+        .btn-join { background: var(--primary); border: none; padding: 8px; border-radius: 6px; color: white; font-weight: bold; width: 100%; cursor: pointer; margin-top: 8px; font-size: 11px; }
+
+        /* Payment UI */
+        .method-box { display: flex; gap: 10px; margin-bottom: 15px; }
+        .method-card { flex: 1; padding: 15px; border-radius: 12px; text-align: center; cursor: pointer; border: 2px solid transparent; font-weight: bold; font-size: 14px; }
+        .m-bkash { background: var(--bkash); }
+        .m-nagad { background: var(--nagad); }
+        .method-card.selected { border-color: white; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+
+        input { width: 90%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid var(--border); background: rgba(0,0,0,0.3); color: white; outline: none; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -48,8 +59,8 @@
         <b>📢 NOTICE:</b> হ্যাকার ধরা পড়লে আইডি পার্মানেন্ট ব্যান হবে। পেমেন্ট নিয়ে সমস্যা হলে সাপোর্ট এ কথা বলুন।
     </div>
 
-    <div class="glass-card balance-box">
-        <div style="color: #aaa; font-size: 14px;">Current Balance</div>
+    <div class="glass-card">
+        <div style="color: #aaa; font-size: 12px; text-align: center;">Current Balance</div>
         <div class="balance-amount">৳ <span id="balance">0.00</span></div>
     </div>
 
@@ -62,67 +73,67 @@
     </div>
 
     <div id="matches" class="section active">
-        <div class="match-card">
-            <div style="display:flex; justify-content:space-between;"><b>SOLO BATTLE</b> <span style="color:var(--primary); font-size:12px;">BERMUDA</span></div>
-            <p style="font-size:12px; color:#bbb;">Entry: ৳50 | Win: ৳200 | Per Kill: ৳10</p>
-            <button class="btn" onclick="joinMatch(50)">JOIN MATCH</button>
+        <div class="sub-tab-bar">
+            <button class="sub-btn active" onclick="filterMatch('solo', this)">SOLO</button>
+            <button class="sub-btn" onclick="filterMatch('duo', this)">DUO</button>
+            <button class="sub-btn" onclick="filterMatch('squad', this)">SQUAD</button>
         </div>
-        <div class="match-card">
-            <div style="display:flex; justify-content:space-between;"><b>DUO SPECIAL</b> <span style="color:#3498db; font-size:12px;">PURGATORY</span></div>
-            <p style="font-size:12px; color:#bbb;">Entry: ৳100 | Win: ৳400 | Per Kill: ৳20</p>
-            <button class="btn" onclick="joinMatch(100)">JOIN MATCH</button>
-        </div>
-        <div class="match-card">
-            <div style="display:flex; justify-content:space-between;"><b>SQUAD WAR</b> <span style="color:#f1c40f; font-size:12px;">KALAHARI</span></div>
-            <p style="font-size:12px; color:#bbb;">Entry: ৳200 | Win: ৳1000 | Per Kill: ৳40</p>
-            <button class="btn" onclick="joinMatch(200)">JOIN MATCH</button>
-        </div>
+
+        <div id="match-container" class="match-grid">
+            </div>
     </div>
 
     <div id="deposit" class="section">
         <div class="glass-card">
-            <h3>💳 Add Money</h3>
-            <p style="font-size:13px;">Send Money to: <b>01972745315</b></p>
-            <button class="btn" style="background:#e2136e;" onclick="openDep()">BKASH / NAGAD</button>
-            <div id="dep-form" style="display:none; margin-top:10px;">
-                <input type="number" id="d-amt" style="width:90%; padding:10px; margin:5px 0;" placeholder="Amount">
-                <input type="text" id="d-trx" style="width:90%; padding:10px; margin:5px 0;" placeholder="Transaction ID">
-                <button class="btn" onclick="submitRequest('Deposit')">SUBMIT</button>
+            <h3 style="margin-top:0;">💳 Add Money</h3>
+            <p style="font-size:12px; color:#aaa;">Send Money to: <b>01972745315</b> (Personal)</p>
+            
+            <div class="method-box">
+                <div class="method-card m-bkash" id="dep-bkash" onclick="selectMethod('dep', 'bKash')">BKASH</div>
+                <div class="method-card m-nagad" id="dep-nagad" onclick="selectMethod('dep', 'Nagad')">NAGAD</div>
+            </div>
+
+            <div id="dep-form">
+                <input type="number" id="d-amt" placeholder="Enter Amount">
+                <input type="text" id="d-trx" placeholder="Transaction ID">
+                <button class="btn-join" style="padding:15px;" onclick="submitRequest('Deposit')">SUBMIT DEPOSIT</button>
             </div>
         </div>
     </div>
 
     <div id="withdraw" class="section">
         <div class="glass-card">
-            <h3>💸 Withdrawal</h3>
-            <input type="number" id="w-amt" style="width:90%; padding:10px; margin:5px 0;" placeholder="Min 100">
-            <button class="btn" onclick="submitRequest('Withdraw')">REQUEST CASH OUT</button>
+            <h3 style="margin-top:0;">💸 Withdrawal</h3>
+            
+            <div class="method-box">
+                <div class="method-card m-bkash" id="wit-bkash" onclick="selectMethod('wit', 'bKash')">BKASH</div>
+                <div class="method-card m-nagad" id="wit-nagad" onclick="selectMethod('wit', 'Nagad')">NAGAD</div>
+            </div>
+
+            <input type="text" id="w-num" placeholder="Account Number">
+            <input type="number" id="w-amt" placeholder="Min ৳100">
+            <button class="btn-join" style="padding:15px; background:#3498db;" onclick="submitRequest('Withdraw')">CONFIRM WITHDRAW</button>
         </div>
     </div>
 
-    <div id="history" class="section">
-        <div class="glass-card">
-            <h3>📜 Activity History</h3>
-            <div id="h-list" style="font-size:13px; color:#ccc;">No data.</div>
-        </div>
-    </div>
-
-    <div id="leaderboard" class="section">
-        <div class="glass-card">
-            <h3>🏆 Top Players</h3>
-            <table>
-                <tr><th>Rank</th><th>Name</th><th>Earnings</th></tr>
-                <tr><td>1</td><td>Sabbir YT</td><td>৳ 5,400</td></tr>
-                <tr><td>2</td><td>FF Lover</td><td>৳ 3,200</td></tr>
-                <tr><td>3</td><td>Gamer_Boy</td><td>৳ 2,100</td></tr>
-            </table>
-        </div>
-    </div>
+    <div id="history" class="section"><div class="glass-card" id="h-list">No history yet.</div></div>
+    <div id="leaderboard" class="section"><div class="glass-card">🏆 Top Players Loading...</div></div>
 
     <script>
-        // Balance Management (Local Storage saves balance even after refresh)
         let balance = parseFloat(localStorage.getItem('userBalance')) || 0.00;
         let history = JSON.parse(localStorage.getItem('userHistory')) || [];
+        let selectedDepMethod = "";
+        let selectedWitMethod = "";
+
+        const matchData = [
+            { type: 'solo', map: 'Bermuda', entry: 50, win: 200, kill: 10 },
+            { type: 'solo', map: 'Purgatory', entry: 50, win: 200, kill: 10 },
+            { type: 'solo', map: 'Alpine', entry: 60, win: 250, kill: 15 },
+            { type: 'duo', map: 'Bermuda', entry: 100, win: 400, kill: 20 },
+            { type: 'duo', map: 'Nexterra', entry: 100, win: 450, kill: 25 },
+            { type: 'squad', map: 'Bermuda', entry: 200, win: 1000, kill: 40 },
+            { type: 'squad', map: 'Kalahari', entry: 200, win: 1000, kill: 40 }
+        ];
 
         function updateUI() {
             document.getElementById('balance').innerText = balance.toFixed(2);
@@ -138,44 +149,79 @@
             btn.classList.add('active');
         }
 
-        function openDep() { document.getElementById('dep-form').style.display = 'block'; }
+        function selectMethod(type, method) {
+            if(type === 'dep') {
+                selectedDepMethod = method;
+                document.getElementById('dep-bkash').classList.remove('selected');
+                document.getElementById('dep-nagad').classList.remove('selected');
+                document.getElementById('dep-' + method.toLowerCase()).classList.add('selected');
+            } else {
+                selectedWitMethod = method;
+                document.getElementById('wit-bkash').classList.remove('selected');
+                document.getElementById('wit-nagad').classList.remove('selected');
+                document.getElementById('wit-' + method.toLowerCase()).classList.add('selected');
+            }
+        }
+
+        function filterMatch(type, btn) {
+            document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            let container = document.getElementById('match-container');
+            container.innerHTML = '';
+            
+            matchData.filter(m => m.type === type).forEach(m => {
+                container.innerHTML += `
+                    <div class="match-card">
+                        <span class="map-tag">${m.map.toUpperCase()}</span>
+                        <span class="match-title">${type.toUpperCase()} BATTLE</span>
+                        <p class="match-info">Entry: ৳${m.entry}</p>
+                        <p class="match-info">Winner: ৳${m.win}</p>
+                        <p class="match-info">Per Kill: ৳${m.kill}</p>
+                        <button class="btn-join" onclick="joinMatch(${m.entry})">JOIN NOW</button>
+                    </div>
+                `;
+            });
+        }
 
         function submitRequest(type) {
+            let method = (type === 'Deposit') ? selectedDepMethod : selectedWitMethod;
+            if(!method) return alert("Please select bKash or Nagad!");
+
             let amt = (type === 'Deposit') ? document.getElementById('d-amt').value : document.getElementById('w-amt').value;
-            if(!amt || amt < 10) return alert("Valid amount please!");
+            if(!amt || amt < 10) return alert("Enter valid amount!");
 
             if(type === 'Withdraw' && amt > balance) return alert("Insufficient balance!");
 
-            let log = { type: type, amount: amt, status: 'Pending', time: new Date().toLocaleTimeString() };
-            history.unshift(log);
-            
-            if(type === 'Withdraw') { balance -= parseFloat(amt); }
+            history.unshift({ type: type, amount: amt, method: method, status: 'Pending', time: new Date().toLocaleTimeString() });
+            if(type === 'Withdraw') balance -= parseFloat(amt);
             
             updateUI();
-            alert(type + " request sent! Status: Pending");
-        }
-
-        function renderHistory() {
-            let list = document.getElementById('h-list');
-            list.innerHTML = history.length ? '' : 'No history.';
-            history.forEach(item => {
-                list.innerHTML += `<div style="padding:10px; border-bottom:1px solid #333; display:flex; justify-content:space-between;">
-                    <span>${item.type} (৳${item.amount})</span>
-                    <span style="color:orange;">${item.status}</span>
-                </div>`;
-            });
+            alert(type + " request sent via " + method + "! Status: Pending");
         }
 
         function joinMatch(fee) {
             if(balance >= fee) {
                 balance -= fee;
                 updateUI();
-                alert("Joined Successfully! Check Room ID 15 mins before match.");
-            } else { alert("Please add money first!"); }
+                alert("Joined Successfully!");
+            } else { alert("Low balance! Please deposit first."); }
         }
 
-        // Initial Load
+        function renderHistory() {
+            let list = document.getElementById('h-list');
+            list.innerHTML = history.length ? '' : 'No history.';
+            history.forEach(item => {
+                list.innerHTML += `<div style="padding:10px; border-bottom:1px solid #333; display:flex; justify-content:space-between; font-size:12px;">
+                    <span>${item.type} (${item.method})</span>
+                    <span style="color:orange;">৳${item.amount} - ${item.status}</span>
+                </div>`;
+            });
+        }
+
+        // Initialize
         updateUI();
+        filterMatch('solo', document.querySelector('.sub-btn'));
     </script>
 </body>
 </html>
