@@ -3,316 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>মানি গার্ডেন প্রো | অফিসিয়াল</title>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6549982487669310" crossorigin="anonymous"></script>
-
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
+    <title>Elite FF Pro Tournament</title>
     <style>
-        :root { 
-            --primary-bg: #030712; 
-            --card-bg: rgba(31, 41, 55, 0.7);
-            --accent: #ff0055; 
-            --text-main: #ffffff; 
-            --grad-bg: radial-gradient(circle at top right, #4c1d95, #030712), radial-gradient(circle at bottom left, #831843, #030712);
-            --header-grad: linear-gradient(135deg, #ff00cc 0%, #3333ff 100%);
-        }
-        
-        body { 
-            margin: 0; 
-            font-family: 'Hind Siliguri', sans-serif; 
-            background: var(--grad-bg); 
-            background-attachment: fixed;
-            color: var(--text-main); 
-            padding-bottom: 380px; 
-            min-height: 100vh;
-        }
-
-        .page { display: none; padding: 20px; animation: zoomIn 0.3s ease-out; }
-        .active { display: block; }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
-        .header { 
-            background: var(--header-grad); 
-            padding: 50px 20px; 
-            text-align: center; 
-            border-bottom-left-radius: 50px; 
-            border-bottom-right-radius: 50px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-        }
-
-        .balance-pill { 
-            background: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(15px); 
-            padding: 15px 40px; 
-            border-radius: 30px; 
-            font-size: 1.6rem; 
-            font-weight: 900; 
-            display: inline-block; 
-            margin-top: 15px; 
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-        
-        .card { 
-            background: var(--card-bg); 
-            backdrop-filter: blur(10px);
-            padding: 25px; 
-            border-radius: 30px; 
-            margin-top: 20px; 
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .notice-board { 
-            background: linear-gradient(to right, #fff9c4, #ffecb3); 
-            color: #5d4037; 
-            padding: 20px; 
-            border-radius: 20px; 
-            margin-bottom: 20px; 
-            font-size: 0.95rem; 
-            border-left: 8px solid #ffd600; 
-            font-weight: 600;
-        }
-        
-        .btn-action { 
-            background: linear-gradient(to right, #ff0055, #ff5e00); 
-            color: white; 
-            border: none; 
-            padding: 20px; 
-            width: 100%; 
-            border-radius: 20px; 
-            font-weight: 800; 
-            cursor: pointer; 
-            margin-top: 15px; 
-            font-size: 1.2rem; 
-            box-shadow: 0 5px 20px rgba(255, 0, 85, 0.4);
-        }
-
-        .ad-container {
-            position: fixed;
-            bottom: 80px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            z-index: 99;
-            background: rgba(0,0,0,0.8);
-            padding: 10px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .direct-link-btn {
-            background: linear-gradient(to right, #00ff88, #00bdff);
-            color: #000;
-            padding: 12px 25px;
-            border-radius: 15px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 1rem;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .bottom-nav { 
-            position: fixed; 
-            bottom: 0; 
-            width: 100%; 
-            background: rgba(0, 0, 0, 0.95); 
-            backdrop-filter: blur(20px); 
-            display: flex; 
-            justify-content: space-around; 
-            padding: 15px 0; 
-            border-top: 1px solid rgba(255,255,255,0.1); 
-            z-index: 100;
-        }
-
-        .nav-link { color: #888; cursor: pointer; text-align: center; font-size: 0.8rem; text-decoration: none; }
-        .active-nav { color: #ff0055; font-weight: 900; }
-        .nav-icon { font-size: 1.5rem; }
-
-        input, select { 
-            width: 100%; padding: 16px; margin-top: 12px; border-radius: 15px; 
-            border: 1px solid #444; background: rgba(0,0,0,0.5); color: white; box-sizing: border-box;
-        }
-
-        .stat-box {
-            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; 
-            text-align: center; border: 1px solid rgba(255,255,255,0.1);
-        }
+        :root { --primary: #ff4b2b; --secondary: #1a1a1a; --accent: #4caf50; --bkash: #e2136e; --nagad: #f15922; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--secondary); color: white; margin: 0; padding: 15px; }
+        .card { background: #2d2d2d; padding: 20px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .wallet-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .btn { border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; color: white; transition: 0.3s; }
+        .btn-join { background: var(--primary); }
+        .btn-bkash { background: var(--bkash); }
+        .btn-nagad { background: var(--nagad); }
+        input { width: 90%; padding: 10px; margin-top: 10px; border-radius: 5px; border: none; }
+        .hidden { display: none; }
+        h2 { font-size: 18px; margin: 10px 0; }
+        .badge { background: #f39c12; padding: 2px 6px; border-radius: 4px; font-size: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="home-page" class="page active">
-        <div class="header">
-            <h1 style="margin:0;">মানি গার্ডেন 🌿</h1>
-            <div class="balance-pill">৳ <span id="balance">0</span></div>
+    <div class="card">
+        <div class="wallet-box">
+            <span>My Balance:</span>
+            <span style="font-size: 24px; color: var(--accent);">৳ <span id="balance">500</span></span>
         </div>
-        
-        <div class="card">
-            <div class="notice-board">
-                📢 <b>অফার ও কাজের নিয়ম:</b><br>
-                ✅ অ্যাকাউন্ট খুললেই ১০০ পয়েন্ট বোনাস!<br>
-                ✅ বন্ধুকে রেফার করলে পাচ্ছেন ৩০০ পয়েন্ট বোনাস!<br>
-                ✅ প্রতিটি কাজের জন্য ৫০ পয়েন্ট।<br>
-                💰 ১০০০০ পয়েন্টে ৫০০ টাকা সরাসরি বিকাশ বা নগদে পেমেন্ট।<br>
-                🔔 প্রতিদিন ২০টি কাজ সম্পন্ন করুন।
-            </div>
-            <p id="task-info" style="text-align:center; font-weight:900;">বাকি কাজ: ২০/২০</p>
-            <button class="btn-action" id="task-btn" onclick="startTask()">কাজ শুরু করুন 🚀</button>
+        <div style="display:flex; gap: 10px;">
+            <button class="btn" style="background: #3498db;" onclick="toggleTab('addMoney')">Add Money</button>
+            <button class="btn" style="background: #9b59b6;" onclick="toggleTab('withdraw')">Withdraw</button>
         </div>
     </div>
 
-    <div id="refer-page" class="page">
-        <h2 align="center" style="color:#ff00cc;">রেফার ও ইনকাম 🎁</h2>
-        <div class="card">
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
-                <div class="stat-box">
-                    <span style="font-size:0.7rem; opacity:0.7;">মোট রেফার</span><br>
-                    <b id="refer-count" style="color:#00ff88; font-size:1.2rem;">0</b>
-                </div>
-                <div class="stat-box">
-                    <span style="font-size:0.7rem; opacity:0.7;">রেফার ইনকাম</span><br>
-                    <b id="refer-income" style="color:#0088ff; font-size:1.2rem;">0</b>
-                </div>
-            </div>
-            <p align="center">বন্ধুদের ইনভাইট করুন এবং প্রতি রেফারে ৩০০ পয়েন্ট জিতে নিন!</p>
-            <input type="text" id="ref-url" readonly>
-            <button class="btn-action" style="background: linear-gradient(to right, #00d2ff, #3a7bd5);" onclick="copyRef()">লিংক কপি করুন 🔗</button>
+    <div id="addMoney" class="card hidden">
+        <h2>💰 Add Money (Automatic)</h2>
+        <p>Choose Method:</p>
+        <button class="btn btn-bkash" onclick="payment('bKash')">bKash Personal</button>
+        <button class="btn btn-nagad" onclick="payment('Nagad')">Nagad Personal</button>
+        <div id="paymentDetails" class="hidden">
+            <p id="methodText"></p>
+            <input type="number" id="amount" placeholder="Enter Amount">
+            <input type="text" id="trxid" placeholder="Enter TrxID">
+            <button class="btn btn-join" onclick="submitDeposit()">Submit Deposit</button>
         </div>
     </div>
 
-    <div id="withdraw-page" class="page">
-        <h2 align="center" style="color:#00ff88;">টাকা উত্তোলন 💵</h2>
-        <div class="card">
-            <p align="center" style="color:#fbbf24; font-weight:bold;">১০০০০ পয়েন্ট হলেই ৫০০ টাকা বিকাশ বা নগদে পেমেন্ট।</p>
-            <select id="withdraw-method">
-                <option value="bkash">বিকাশ (bKash)</option>
-                <option value="nagad">নগদ (Nagad)</option>
-            </select>
-            <input type="number" id="phone" placeholder="আপনার নম্বর দিন">
-            <button class="btn-action" style="background: linear-gradient(to right, #11998e, #38ef7d);" onclick="handleWithdraw()">আবেদন জমা দিন ✅</button>
-        </div>
+    <div id="withdraw" class="card hidden">
+        <h2>💸 Cash Out</h2>
+        <select id="wMethod" style="width: 100%; padding: 10px; border-radius: 5px;">
+            <option value="bKash">bKash</option>
+            <option value="Nagad">Nagad</option>
+        </select>
+        <input type="text" id="wNumber" placeholder="Your bKash/Nagad Number">
+        <input type="number" id="wAmount" placeholder="Amount (Min ৳100)">
+        <button class="btn btn-join" onclick="submitWithdraw()">Request Withdraw</button>
     </div>
 
-    <div id="settings-page" class="page">
-        <h2 align="center" style="color:#a855f7;">প্রোফাইল 👤</h2>
-        <div class="card">
-            <p align="center">আমার আইডি: <b id="display-id" style="color:#ff0055;"></b></p>
-            <div class="notice-board" style="background: rgba(168, 85, 247, 0.1); border-left-color: #a855f7; color: #fff;">
-                🌟 <b>কেন মানি গার্ডেন সেরা?</b><br>
-                ✅ আমরা দ্রুত পেমেন্ট নিশ্চিত করি।<br>
-                ✅ রেফার করে আনলিমিটেড আয়ের সুযোগ।<br>
-                ✅ ২৪/৭ টেলিগ্রাম সাপোর্ট সিস্টেম।
-            </div>
-            <button class="btn-action" style="background: #0088cc;" onclick="window.open('https://t.me/smart_ritaj')">টেলিগ্রাম সাপোর্ট ✈️</button>
-        </div>
-    </div>
-
-    <div class="ad-container">
-        <a href="https://www.effectivegatecpm.com/z08048qzju?key=72819e212da814ab3ea7a6471cd06902" target="_blank" class="direct-link-btn">
-            🔥 স্পেশাল বোনাস পেতে ক্লিক করুন! 🔥
-        </a>
-
-        <script>
-          atOptions = {
-            'key' : '050aff6ddb6b294a98f5f0a5c1bf1c91',
-            'format' : 'iframe',
-            'height' : 300,
-            'width' : 160,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/050aff6ddb6b294a98f5f0a5c1bf1c91/invoke.js"></script>
-    </div>
-
-    <div class="bottom-nav">
-        <div class="nav-link active-nav" onclick="showP('home-page', this)"><div class="nav-icon">🏠</div>হোম</div>
-        <div class="nav-link" onclick="showP('refer-page', this)"><div class="nav-icon">👥</div>রেফার</div>
-        <div class="nav-link" onclick="showP('withdraw-page', this)"><div class="nav-icon">💳</div>উইথড্র</div>
-        <div class="nav-link" onclick="showP('settings-page', this)"><div class="nav-icon">👤</div>প্রোফাইল</div>
+    <h2>🔥 Available Tournaments</h2>
+    <div class="card">
+        <h3>Pro Solo Battle <span class="badge">E-Sports</span></h3>
+        <p>Entry: ৳50 | Winner: ৳200 | Per Kill: ৳10</p>
+        <p>Time: 10:30 PM | Map: Bermuda</p>
+        <button class="btn btn-join" onclick="joinMatch(50)">Join Now</button>
     </div>
 
     <script>
-        const firebaseConfig = { apiKey: "AIzaSyCMeZkhyx34k2Lh9c7zdfnWvpe-eFAcy9M", authDomain: "taka-447c5.firebaseapp.com", projectId: "taka-447c5", storageBucket: "taka-447c5.appspot.com", messagingSenderId: "280823696760", appId: "1:280823696760:web:1c4ac09ab62fee0fc28c8d" };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        let currentBalance = 500;
 
-        let userId = localStorage.getItem('mg_ultra_v_ads_final') || "MG" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('mg_ultra_v_ads_final', userId);
-
-        let userData = { balance: 100, tasksLeft: 20, totalRef: 0 };
-
-        async function loadData() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const referrer = urlParams.get('ref');
-            const doc = await db.collection("users").doc(userId).get();
-            if (doc.exists) { userData = doc.data(); } 
-            else {
-                if(referrer && referrer !== userId) {
-                    const refDoc = await db.collection("users").doc(referrer).get();
-                    if(refDoc.exists) {
-                        let rd = refDoc.data();
-                        rd.balance += 300; rd.totalRef = (rd.totalRef || 0) + 1;
-                        await db.collection("users").doc(referrer).set(rd);
-                    }
-                }
-                await db.collection("users").doc(userId).set(userData);
-            }
-            updateUI();
+        function toggleTab(id) {
+            document.getElementById('addMoney').classList.add('hidden');
+            document.getElementById('withdraw').classList.add('hidden');
+            document.getElementById(id).classList.remove('hidden');
         }
 
-        function updateUI() {
-            document.getElementById('balance').innerText = userData.balance;
-            document.getElementById('task-info').innerText = "বাকি কাজ: " + userData.tasksLeft + "/২০";
-            document.getElementById('display-id').innerText = userId;
-            document.getElementById('refer-count').innerText = userData.totalRef || 0;
-            document.getElementById('refer-income').innerText = (userData.totalRef || 0) * 300;
-            document.getElementById('ref-url').value = window.location.origin + window.location.pathname + "?ref=" + userId;
+        function payment(type) {
+            document.getElementById('paymentDetails').classList.remove('hidden');
+            document.getElementById('methodText').innerText = "Send Money to: 017XXXXXXXX (" + type + ")";
         }
 
-        async function startTask() {
-            if (userData.tasksLeft > 0) {
-                window.open("https://www.effectivegatecpm.com/f0zydmuyb?key=23d3398940cf4abc8b35403ad98a89c8", "_blank");
-                let timeLeft = 15; const btn = document.getElementById('task-btn');
-                btn.disabled = true;
-                const timer = setInterval(async () => {
-                    btn.innerText = "অপেক্ষা করুন (" + timeLeft + "s)";
-                    if (timeLeft-- < 0) {
-                        clearInterval(timer);
-                        userData.balance += 50; userData.tasksLeft--;
-                        await db.collection("users").doc(userId).set(userData);
-                        btn.disabled = false; btn.innerText = "কাজ শুরু করুন 🚀";
-                        updateUI(); alert("সফল! ৫০ পয়েন্ট যোগ হয়েছে।");
-                    }
-                }, 1000);
-            }
+        function submitDeposit() {
+            let trx = document.getElementById('trxid').value;
+            if(trx.length > 5) {
+                alert("Deposit Request Sent! Admin will verify TrxID: " + trx);
+                toggleTab('none');
+            } else { alert("Enter valid TrxID"); }
         }
 
-        function handleWithdraw() { 
-            if(userData.balance < 10000) {
-                alert("উইথড্র করার জন্য নূন্যতম ১০০০০ পয়েন্ট প্রয়োজন!");
-            } else {
-                alert("আবেদন জমা হয়েছে!"); 
-            }
+        function submitWithdraw() {
+            let amount = document.getElementById('wAmount').value;
+            if(amount >= 100 && amount <= currentBalance) {
+                alert("Withdrawal request of ৳" + amount + " submitted via " + document.getElementById('wMethod').value);
+                currentBalance -= amount;
+                updateBalance();
+            } else { alert("Insufficient Balance or Invalid Amount!"); }
         }
-        function copyRef() { const t = document.getElementById("ref-url"); t.select(); navigator.clipboard.writeText(t.value); alert("লিংক কপি হয়েছে!"); }
-        function showP(pId, el) { 
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
-            document.getElementById(pId).classList.add('active'); 
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-nav')); 
-            el.classList.add('active-nav'); 
+
+        function joinMatch(fee) {
+            if(currentBalance >= fee) {
+                currentBalance -= fee;
+                updateBalance();
+                alert("Match Joined! Room ID & Pass will be sent to your Profile.");
+            } else { alert("Low Balance! Please Add Money."); }
         }
-        loadData();
+
+        function updateBalance() {
+            document.getElementById('balance').innerText = currentBalance;
+        }
     </script>
 </body>
 </html>
